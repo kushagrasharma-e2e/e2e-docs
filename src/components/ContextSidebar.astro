@@ -4,8 +4,8 @@ import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
 
 const { sidebar } = Astro.locals.starlightRoute;
 const path = Astro.url.pathname;
-const isMyAccount = path.startsWith('/myaccount');
-const isTir = path.startsWith('/tir');
+const isMyAccount = path.startsWith('/e2e-docs/myaccount');
+const isTir = path.startsWith('/e2e-docs/myaccount');
 
 type SidebarEntry = (typeof sidebar)[number];
 
