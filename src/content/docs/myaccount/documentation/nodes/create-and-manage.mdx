@@ -1,0 +1,151 @@
+---
+title: Create and Manage Nodes
+description: How users create, list, view, and manage compute Nodes in MyAccount.
+product: myaccount
+category: documentation
+service: myaccount_compute
+feature: nodes
+audience:
+  - developer
+  - support
+  - qa
+visibility: public
+status: draft
+last_verified: 2026-05-08
+supported_portal: myaccount
+api_available: false
+api_spec_status: missing_from_openapi
+support_assisted: false
+regions: []
+related_api: []
+related_ui:
+  - MyAccount > Products > Nodes
+related_services:
+  - myaccount_networking
+  - myaccount_storage
+  - myaccount_backup
+related_troubleshooting:
+  - /myaccount/documentation/nodes/troubleshooting-edge-cases/
+related_solutions: []
+truth_source:
+  - verified_product_behavior
+llm_safe: true
+agent_actionable: false
+---
+
+# Create and Manage Nodes
+
+The Nodes feature is exposed in MyAccount under **Products > Nodes**. The portal supports both an empty-state launch flow and a manage/listing flow for existing Nodes. Node creation can involve image, security group, VPC, reserved IP, backup, volume, SSH key, monitoring, and profile settings.
+
+## Main Portal Flows
+
+### Node Listing
+
+The listing page fetches Nodes for the selected project and location. It displays active and manageable Nodes and excludes already terminated Nodes in the user-facing list. The list supports filters and contextual actions based on each Node state, lock status, eligibility, and selected location.
+
+The listing page also exposes bulk actions for selected Nodes. Supported bulk actions can include power off, power on, reboot, lock, and unlock, depending on the selected Nodes and their current states.
+
+### Empty State
+
+When no Nodes exist, the portal displays an introductory banner with a **Get Started** path into Node creation. When Nodes already exist, users start creation from **Add New Node**.
+
+### Node Detail
+
+The detail page is the operational surface for a single Node. It includes basic configuration, plan and pricing information, memory and storage information, commitment details when applicable, network details, security details, volume attachments, snapshots, CDP backup details, monitoring, alerts, audit or action logs, and billing logs.
+
+The detail page also exposes state-dependent actions. If the portal rejects an action, refresh the Node state and confirm that the Node is in a supported state for that action.
+
+## Creation Flow
+
+Node creation is a multi-step UI workflow backed by a single create request.
+
+1. Select an OS or image category such as CPU, GPU, marketplace, saved image, or imported image where available.
+2. Select an OS version where the selected image category supports versions.
+3. Select a Node category, instance family, plan, and pricing model.
+4. Configure the number of Nodes.
+5. Configure backup, networking, security group, SSH keys, attached volume, and advanced settings.
+6. Review the live summary.
+7. Launch the Node.
+
+The summary panel changes as the user selects plan, count, backup, security group, SSH/password behavior, volume, and pricing model. Review the summary before launch because creating a Node can start billable resource usage.
+
+## Creation Request Fields
+
+The create flow can include:
+
+- Image identifier and selected image metadata.
+- Selected plan identifier.
+- Node name.
+- Node count.
+- SSH key identifiers.
+- Password-based SSH setting.
+- Backup enablement and backup options.
+- Security group selection.
+- VPC or reserved IP choices.
+- Volume attachment selection.
+- BitNinja enablement.
+- Disk encryption enablement and passphrase when provided.
+- IPv6 selection where exposed.
+- Start script selection or content.
+- Billing or commitment selection.
+
+The exact required fields depend on selected image type, Node series, operating system, and optional add-ons. If a field appears unavailable or an option is rejected, choose a supported combination and retry.
+
+## Creation Validations
+
+The portal validates required fields before launch.
+
+Important validations include:
+
+- A plan is required for standard Node creation.
+- An image is required for standard Node creation.
+- Node name must be present and valid.
+- Node count is limited in the portal.
+- Some add-ons cannot be attached to multiple Nodes in one launch request.
+- Security group selection must identify an existing attachable group.
+- Volume selection is constrained to attachable volumes.
+- Backup encryption and Node encryption settings are creation-time choices.
+- SSH-key-only access is not applicable to Windows Nodes in the old user-facing documentation and should be treated as OS-specific behavior.
+
+## Actions
+
+The portal supports these Node actions where state and plan allow:
+
+| Action | Behavior |
+| --- | --- |
+| Start or power on | Starts a powered-off or stopped Node. Starting a stopped Node can take longer because it must be redeployed. |
+| Power off | Shuts down the Node but keeps it allocated on its host. Billing continues unless a product-specific rule says otherwise. |
+| Stop | Undeploys the Node from the host. For eligible E1-series Nodes, compute billing can pause while stopped, while storage and add-ons continue. |
+| Reboot | Restarts the Node without changing the installed image. |
+| Reinstall | Rebuilds the Node from a selected image where supported. |
+| Delete or terminate | Terminates the Node after checking related resource conditions. |
+| Lock or unlock | Locks prevent mutating actions until unlocked. |
+| Save image | Creates a reusable image from a supported powered-off Node state. |
+| Snapshot | Creates or schedules point-in-time snapshots where supported. |
+| Convert to committed | Converts eligible on-demand Nodes to committed billing. |
+| Modify or upgrade plan | Changes plan where supported, usually with state restrictions. |
+| Increase root storage | Increases root disk size where supported, notably E1-series behavior. |
+| Move to another project | Available for eligible Nodes where the portal shows the action. |
+| Console | Opens console access for supported states and images. |
+
+## Loading, Disabled, Empty, and Error States
+
+The UI disables actions while a Node is in transitional states such as creating, deploying, saving, upgrading, stopping, or terminating. It also disables or hides actions based on lock state, plan series, operating system, add-on availability, and selected bulk-action validity.
+
+Common UI states:
+
+- Empty-state banner when no Nodes exist.
+- Loading indicators while fetching plans, images, Node lists, backup prevalidation, VPCs, volumes, security groups, and SSH keys.
+- Disabled action buttons during in-progress operations.
+- Confirmation dialogs for destructive, billing-impacting, or infrastructure-changing actions.
+- Per-request toasts or alerts on success and failure.
+
+## Permission Behavior
+
+The portal shows or disables actions based on account permissions, Node state, lock state, and feature eligibility. If an action is not visible, the user may not have permission or the Node may not currently support that action.
+
+## Notes
+
+- Some operations are asynchronous. Refresh the Node detail page to check the latest state.
+- Some actions depend on related services such as networking, backup, storage, monitoring, or security.
+- Available plans, images, regions, and add-ons can vary by account and location.

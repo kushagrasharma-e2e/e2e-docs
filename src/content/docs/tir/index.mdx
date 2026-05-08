@@ -1,0 +1,219 @@
+---
+title: TIR
+description: Build, train, deploy, and run AI workloads using E2E TIR — notebooks, datasets, inference, GenAI API, and Terraform automation.
+product: tir
+category: product-landing
+service: platform
+feature: overview
+audience:
+  - new_customer
+  - developer
+visibility: public
+status: draft
+last_verified: 2026-05-08
+supported_portal: tir
+api_available: false
+api_spec_status: not_applicable
+support_assisted: false
+regions: []
+related_api: []
+related_ui: []
+related_services:
+  - tir_notebooks
+  - tir_datasets
+  - tir_inference
+  - tir_training
+  - tir_genai_api
+related_troubleshooting:
+  - /tir/troubleshooting/
+related_solutions: []
+truth_source:
+  - design-and-tech-stack
+  - AGENTS.md
+llm_safe: true
+agent_actionable: false
+---
+
+# TIR
+
+<div class="gb-overview">
+
+<p class="gb-eyebrow">TIR — AI Platform</p>
+
+<p class="gb-intro">Build, train, deploy, and run AI workloads. TIR provides notebooks, datasets, training pipelines, inference endpoints, GenAI APIs, and Terraform automation.</p>
+
+<div class="gb-card-grid">
+  <a class="gb-card" href="/e2e-docs/tir/documentation/">
+    <div class="gb-card__visual gb-card__visual--blue">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+    </div>
+    <div class="gb-card__body">
+      <h3>Documentation</h3>
+      <p>Service concepts, resource states, limitations, and billing behavior.</p>
+    </div>
+  </a>
+
+  <a class="gb-card" href="/e2e-docs/tir/guides/">
+    <div class="gb-card__visual gb-card__visual--green">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        <line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/>
+      </svg>
+    </div>
+    <div class="gb-card__body">
+      <h3>Guides</h3>
+      <p>AI workflow tasks — notebooks, datasets, training, inference, and GenAI API usage.</p>
+    </div>
+  </a>
+
+  <a class="gb-card" href="/e2e-docs/tir/api-automation/">
+    <div class="gb-card__visual gb-card__visual--purple">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+      </svg>
+    </div>
+    <div class="gb-card__body">
+      <h3>Developer</h3>
+      <p>TIR API references, Terraform provider docs, and agent operation specs.</p>
+    </div>
+  </a>
+
+  <a class="gb-card" href="/e2e-docs/tir/troubleshooting/">
+    <div class="gb-card__visual gb-card__visual--amber">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </div>
+    <div class="gb-card__body">
+      <h3>Troubleshooting</h3>
+      <p>Error-message-first help for TIR services and support requirements.</p>
+    </div>
+  </a>
+</div>
+
+<div class="gb-section">
+  <div class="gb-section__header">
+    <h2>Services</h2>
+    <p>TIR service hubs will be added after source-backed extraction verifies behavior and public API availability.</p>
+  </div>
+
+  <div class="gb-card-grid gb-card-grid--wide">
+    <div class="gb-card">
+      <div class="gb-card__visual gb-card__visual--teal">
+        <span class="gb-badge">Coming soon</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/>
+          <path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+          <path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/>
+          <path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/>
+          <path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/>
+          <path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/>
+          <path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/>
+          <path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/>
+        </svg>
+      </div>
+      <div class="gb-card__body">
+        <h3>Notebooks</h3>
+        <p>Launch and work in AI notebook environments with GPU access.</p>
+      </div>
+    </div>
+
+    <div class="gb-card">
+      <div class="gb-card__visual gb-card__visual--blue">
+        <span class="gb-badge">Coming soon</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+        </svg>
+      </div>
+      <div class="gb-card__body">
+        <h3>Datasets</h3>
+        <p>Upload, manage, and share datasets used in notebook and training workflows.</p>
+      </div>
+    </div>
+
+    <div class="gb-card">
+      <div class="gb-card__visual gb-card__visual--purple">
+        <span class="gb-badge">Coming soon</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="gb-card__body">
+        <h3>Training</h3>
+        <p>Run distributed training jobs and monitor model training lifecycle.</p>
+      </div>
+    </div>
+
+    <div class="gb-card">
+      <div class="gb-card__visual gb-card__visual--green">
+        <span class="gb-badge">Coming soon</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+      </div>
+      <div class="gb-card__body">
+        <h3>Inference</h3>
+        <p>Deploy models and operate inference endpoints at scale.</p>
+      </div>
+    </div>
+
+    <div class="gb-card">
+      <div class="gb-card__visual gb-card__visual--rose">
+        <span class="gb-badge">Coming soon</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4M4.22 4.22l2.83 2.83m9.9 9.9 2.83 2.83M1 12h4m14 0h4M4.22 19.78l2.83-2.83m9.9-9.9 2.83-2.83"/>
+        </svg>
+      </div>
+      <div class="gb-card__body">
+        <h3>GenAI API</h3>
+        <p>Access generated API references from approved OpenAPI specs.</p>
+      </div>
+    </div>
+
+    <div class="gb-card">
+      <div class="gb-card__visual gb-card__visual--slate">
+        <span class="gb-badge">Coming soon</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+        </svg>
+      </div>
+      <div class="gb-card__body">
+        <h3>Terraform</h3>
+        <p>Automate TIR infrastructure using the E2E Terraform provider.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gb-section">
+  <div class="gb-section__header">
+    <h2>Start your AI journey</h2>
+    <p>Move from account setup to deploying and operating AI models.</p>
+  </div>
+  <div class="gb-journey">
+    <a class="gb-step" href="/e2e-docs/account-billing/">Create account</a>
+    <a class="gb-step" href="/e2e-docs/account-billing/">Understand billing</a>
+    <span class="gb-step">Launch notebook</span>
+    <span class="gb-step">Manage datasets</span>
+    <span class="gb-step">Train model</span>
+    <span class="gb-step">Deploy inference</span>
+    <span class="gb-step">Use GenAI API</span>
+    <a class="gb-step" href="/e2e-docs/tir/api-automation/">Automate with API</a>
+  </div>
+</div>
+
+<a class="gb-next" href="/e2e-docs/account-billing/">
+  <div>
+    <p class="gb-next__label">Start here</p>
+    <p class="gb-next__title">Set up account and billing before using TIR resources</p>
+  </div>
+  <span class="gb-next__arrow">→</span>
+</a>
+
+</div>

@@ -1,0 +1,214 @@
+---
+title: Nodes Troubleshooting and Edge Cases
+description: Troubleshooting notes for common MyAccount Node creation, state, access, networking, backup, and billing issues.
+product: myaccount
+category: documentation
+service: myaccount_compute
+feature: node_troubleshooting
+audience:
+  - developer
+  - support
+  - qa
+visibility: public
+status: draft
+last_verified: 2026-05-08
+supported_portal: myaccount
+api_available: false
+api_spec_status: missing_from_openapi
+support_assisted: true
+regions: []
+related_api: []
+related_ui:
+  - MyAccount > Products > Nodes
+related_services:
+  - myaccount_networking
+  - myaccount_storage
+  - myaccount_backup
+  - myaccount_monitoring
+related_troubleshooting: []
+related_solutions: []
+truth_source:
+  - verified_product_behavior
+llm_safe: true
+agent_actionable: false
+---
+
+# Nodes Troubleshooting and Edge Cases
+
+This page lists common failure modes and edge cases for MyAccount Nodes.
+
+## Creation Fails Before Provisioning
+
+**What it means:** MyAccount rejected the configuration before the Node was created.
+
+**Likely causes:**
+
+- Missing image.
+- Missing plan.
+- Invalid Node count.
+- Invalid or unavailable plan for the selected image.
+- Invalid project or location.
+- Unsupported add-on combination.
+- Volume, security group, reserved IP, VPC, or backup prevalidation failure.
+
+**What to do:** Recheck selected OS/image, plan, count, project, location, and optional add-ons.
+
+**Support required:** Sometimes.
+
+**What not to do:** Do not retry the same invalid request repeatedly without changing the invalid field.
+
+## Creation Starts but Node Does Not Become Running
+
+**What it means:** The initial create operation may have reached infrastructure, but provisioning or follow-up integration did not reach a stable running state.
+
+**Likely causes:**
+
+- Infrastructure launch failure.
+- Host or capacity issue.
+- Image or plan provisioning issue.
+- Async worker delay.
+- Backup, monitoring, security, or network setup failure after initial launch.
+
+**What to do:** Refresh the Node detail page and inspect the visible state. Check whether the Node is still transitional before retrying. If the state is failed or stuck beyond the expected provisioning window, raise support with Node ID, project, region/location, selected image, selected plan, request time, and the visible error message.
+
+**Support required:** Sometimes.
+
+**What not to do:** Do not create replacement Nodes repeatedly without checking whether billing-impacting resources were already created.
+
+## Action Disabled in UI
+
+**What it means:** The portal determined the action is not valid for the current visible state, lock state, permissions, selected series, or feature availability.
+
+**Likely causes:**
+
+- Node is locked.
+- Node is in a transitional state.
+- Action requires powered-off state.
+- Action is unsupported for the series or OS.
+- User lacks permission.
+- Bulk action selection includes invalid Nodes.
+
+**What to do:** Refresh Node detail, wait for transitional operations to finish, unlock the Node if appropriate, or use the correct required state.
+
+**Support required:** No, unless state remains stuck.
+
+**What not to do:** Do not try to bypass a disabled portal action.
+
+## Power Off Does Not Stop Billing
+
+**What it means:** Power off shuts down the Node but does not generally stop billing.
+
+**Likely cause:** Power off keeps the Node allocated on its host.
+
+**What to do:** Use Stop only where the Node series supports stop billing behavior, and verify that attached resources continue billing. For E1-series Nodes, compute billing can pause in stopped state.
+
+**Support required:** No for expected behavior.
+
+**What not to do:** Do not tell users to power off a Node as a cost-saving substitute for stop or termination.
+
+## Stop Takes Longer to Start Again
+
+**What it means:** Stopped Nodes are undeployed and must be redeployed to a host before running again.
+
+**Likely cause:** Expected stop/start lifecycle.
+
+**What to do:** Plan for longer restart time after stop compared with power off.
+
+**Support required:** No, unless start fails.
+
+**What not to do:** Do not treat slower start from stopped as a failure by itself.
+
+## Cannot Attach Reserved IP During Multi-Node Creation
+
+**What it means:** A single reserved IP cannot be attached to multiple Nodes in one creation request.
+
+**Likely cause:** Reserved IP is a unique resource and must be attached to one Node at a time.
+
+**What to do:** Create the Nodes first, then attach reserved IPs individually after creation.
+
+**Support required:** No.
+
+**What not to do:** Do not reuse one reserved IP for a multi-node create request.
+
+## Security Group Blocks Access
+
+**What it means:** The Node can be running but unreachable over SSH or RDP.
+
+**Likely causes:**
+
+- Missing inbound SSH rule for Linux.
+- Missing inbound RDP rule for Windows.
+- Restricted allowed client IP.
+- Security group attached after creation changed access.
+
+**What to do:** Review security group rules and network attachment. Use console access where available if network login is blocked.
+
+**Support required:** Sometimes.
+
+**What not to do:** Do not delete and recreate the Node before checking firewall rules and console access.
+
+## VPC Attach Fails
+
+**What it means:** The related VPC service rejected the attach request.
+
+**Likely causes:**
+
+- Requested private IP already assigned.
+- VPC/subnet is unavailable.
+- Node reached max VPC/private-IP attachment limits.
+- Node state does not allow attach.
+
+**What to do:** Select another private IP or let the service auto-assign one where supported. Check current associated VPCs before retrying.
+
+**Support required:** Sometimes.
+
+**What not to do:** Do not repeatedly retry the same preferred IP if it is already assigned.
+
+## Backup Prevalidation Fails
+
+**What it means:** CDP backup cannot be enabled with the selected Node configuration or current service state.
+
+**Likely causes:**
+
+- Backup unsupported for selected OS, plan, or region.
+- Backup service unavailable.
+- Backup plan validation failed.
+- Encryption or passphrase rules not satisfied.
+
+**What to do:** Create without backup if appropriate, or change the selected configuration. Enable backup later after verifying eligibility.
+
+**Support required:** Sometimes.
+
+**What not to do:** Do not assume Node creation failed unless the portal shows that the creation failed.
+
+## Snapshot or Saved Image Action Unavailable
+
+**What it means:** The current Node state, series, lock state, or operation-in-progress blocks image or snapshot actions.
+
+**Likely causes:**
+
+- Node must be powered off for saved image creation.
+- Snapshot unsupported for selected series.
+- Another save or snapshot operation is already running.
+- Snapshot is locked.
+
+**What to do:** Move the Node into the required state and wait for active operations to complete. For snapshots, verify series support.
+
+**Support required:** Sometimes.
+
+**What not to do:** Do not assume all Node families support the same snapshot behavior.
+
+## Trace a Node Issue
+
+For a support handoff, collect:
+
+- Node ID.
+- Project and location.
+- Action attempted.
+- Approximate timestamp.
+- UI message or error response.
+- Current Node state.
+- Whether the Node was locked.
+- Related selected resources such as security group, VPC, reserved IP, volume, backup plan, or image.
+
+Do not include credentials, SSH private keys, customer secrets, or private operational notes.

@@ -1,0 +1,19 @@
+metadata:
+  visibility: internal
+  status: draft
+  last_updated: 2026-05-08
+coverage:
+  - service: myaccount_compute
+    service_registry_entry: present
+    service_hub: present_draft
+    getting_started: present_draft
+    reference: present_draft
+    api_links: placeholder
+    troubleshooting: present_draft
+    llm_summary: present_draft
+    agent_spec: present_draft
+    validation_status: not_run
+  - service: tir_notebooks
+    service_registry_entry: present
+    service_hub: missing
+    validation_status: not_run

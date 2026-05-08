@@ -1,0 +1,91 @@
+---
+title: MyAccount Compute
+description: Service hub for MyAccount compute node documentation.
+product: myaccount
+category: service-hub
+service: myaccount_compute
+feature: compute
+audience:
+  - new_customer
+  - developer
+  - support
+visibility: public
+status: draft
+last_verified: 2026-05-08
+supported_portal: myaccount
+api_available: true
+api_spec_status: undocumented
+support_assisted: false
+regions: []
+related_api:
+  - /api/
+related_ui:
+  - products/create-node
+related_services:
+  - myaccount_networking
+  - myaccount_storage
+  - myaccount_backup
+  - myaccount_monitoring
+  - myaccount_billing
+related_troubleshooting:
+  - /myaccount/compute/troubleshooting/
+related_solutions:
+  - /solutions/
+truth_source:
+  - index.md
+  - AGENTS.md
+llm_safe: true
+agent_actionable: true
+---
+
+import RelatedServiceCard from '../../../../components/RelatedServiceCard.astro';
+import ServiceRelationshipMap from '../../../../components/ServiceRelationshipMap.astro';
+import NextStep from '../../../../components/NextStep.astro';
+
+# MyAccount Compute
+
+## What this service does
+
+Compute documentation will cover creating, accessing, securing, monitoring, and automating compute nodes after backend, frontend, and OpenAPI extraction is complete.
+
+## Common tasks
+
+- Create a compute node.
+- Access a node.
+- Configure networking and security.
+- Add storage or backup when supported.
+- Automate node workflows through approved API docs.
+
+## Getting started
+
+Start with [Create a compute node](/e2e-docs/myaccount/compute/getting-started/create-node/).
+
+## Works with
+
+<ServiceRelationshipMap title="Related services">
+  <RelatedServiceCard label="Networking" reason="Use VPCs, public IPs, floating IPs, and firewall rules with compute nodes. This relationship still needs extraction-backed verification." />
+  <RelatedServiceCard label="Storage" reason="Attach volumes to expand node storage. This relationship still needs extraction-backed verification." />
+  <RelatedServiceCard label="Backup" reason="Enable CDP backups for supported nodes and regions after verification." />
+  <RelatedServiceCard label="Monitoring" reason="Track node health and usage after source-backed behavior extraction." />
+  <RelatedServiceCard label="Billing" reason="Understand charges for compute resources after backend billing verification." />
+</ServiceRelationshipMap>
+
+## API & Automation
+
+Public API docs must be generated from approved OpenAPI specs. Backend routes are used only for verification and internal gap reports.
+
+## Troubleshooting
+
+Troubleshooting entries must be organized by public-safe error messages from backend and UI sources.
+
+## Reference
+
+Compute reference pages should cover user-facing lifecycle, states, limitations, billing behavior, and API mappings after verification.
+
+## Related solutions
+
+Solution pages should be used for multi-service workflows such as secure web servers or private network workloads.
+
+## Next steps
+
+<NextStep href="/e2e-docs/myaccount/compute/getting-started/create-node/" label="Create a compute node" />

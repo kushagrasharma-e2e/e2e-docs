@@ -1,0 +1,20 @@
+---
+interface Props {
+  title?: string;
+  apiHref?: string;
+  agentHref?: string;
+}
+
+import { docsPath } from '../utils/docsPath';
+
+const { title = 'Automate this', apiHref, agentHref } = Astro.props;
+---
+
+<aside class="e2e-card">
+  <h2>{title}</h2>
+  <slot />
+  <ul>
+    {apiHref && <li><a href={docsPath(apiHref)}>Related API reference</a></li>}
+    {agentHref && <li><a href={docsPath(agentHref)}>Related agent operation</a></li>}
+  </ul>
+</aside>

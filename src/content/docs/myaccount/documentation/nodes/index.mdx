@@ -1,0 +1,81 @@
+---
+title: MyAccount Nodes
+description: Documentation for MyAccount compute Nodes, including lifecycle, actions, related services, billing behavior, and common issues.
+product: myaccount
+category: documentation
+service: myaccount_compute
+feature: nodes
+audience:
+  - developer
+  - support
+  - qa
+visibility: public
+status: draft
+last_verified: 2026-05-08
+supported_portal: myaccount
+api_available: false
+api_spec_status: missing_from_openapi
+support_assisted: false
+regions: []
+related_api: []
+related_ui:
+  - MyAccount > Products > Nodes
+related_services:
+  - myaccount_networking
+  - myaccount_storage
+  - myaccount_backup
+  - myaccount_monitoring
+  - myaccount_api_auth
+related_troubleshooting:
+  - /myaccount/documentation/nodes/troubleshooting-edge-cases/
+related_solutions: []
+truth_source:
+  - verified_product_behavior
+llm_safe: true
+agent_actionable: false
+---
+
+# MyAccount Nodes
+
+Nodes are MyAccount compute instances. A Node is created from an operating system or marketplace image and then managed from the MyAccount portal. Nodes connect to other MyAccount services for networking, security groups, SSH keys, block storage, backups, monitoring, saved images, snapshots, reserved IPs, floating IPs, and billing.
+
+This documentation is split by topic so each page stays focused.
+
+## Page Map
+
+| Page | Covers |
+| --- | --- |
+| [Create and Manage Nodes](/e2e-docs/myaccount/documentation/nodes/create-and-manage/) | Creation flow, listing, detail page, actions, UI state, and validations. |
+| [Lifecycle and States](/e2e-docs/myaccount/documentation/nodes/lifecycle-states/) | Provisioning, running, power actions, stop/start, reinstall, saved image, snapshots, termination, and state mapping. |
+| [Networking, Storage, and Security](/e2e-docs/myaccount/documentation/nodes/networking-storage-security/) | Public IP, reserved IP, floating IP, VPC/private IP, IPv6, security groups, SSH keys, BitNinja, volumes, encryption, and backups. |
+| [Billing and Plans](/e2e-docs/myaccount/documentation/nodes/billing-plans/) | Plan selection, savings plans, E1 behavior, stop versus power off billing, root storage upgrade, and billing-related caveats. |
+| [Troubleshooting and Edge Cases](/e2e-docs/myaccount/documentation/nodes/troubleshooting-edge-cases/) | Common validation failures, disabled actions, provisioning delays, access issues, and support handoff guidance. |
+
+## What Nodes Do
+
+Nodes provide virtual or dedicated compute capacity inside MyAccount. Depending on the selected plan, image, region, and account eligibility, Nodes can support:
+
+- Node listing and detail inspection.
+- Node creation from OS, saved image, marketplace image, or imported image where available.
+- Multi-node creation with constraints on shared add-ons.
+- Start, power off, stop, reboot, reinstall, lock, unlock, delete, and bulk actions.
+- Convert-to-committed, plan upgrade or modification, and root storage upgrade where eligible.
+- Console access for supported states.
+- Saved image and snapshot workflows.
+- CDP backup integration.
+- Public IP, reserved IP, add-on IP, floating IP, IPv6, and VPC/private networking workflows where the related services support them.
+- Security group attachment, SSH keys, password-based login configuration, disk encryption at creation time, and BitNinja integration.
+- Monitoring graphs, monitoring alerts, action logs, and billing logs.
+
+## Works With
+
+- **Images:** Node creation depends on available OS, marketplace, saved, imported, and upgrade images.
+- **Networking:** Nodes can use public IPs, reserved IPs, VPC/private IPs, IPv6, floating IPs, and security groups.
+- **Storage:** Nodes have root storage and can attach block storage volumes. E1-series root storage can be increased through the root storage upgrade flow.
+- **Backup:** CDP backup can be enabled during creation and managed after creation where supported.
+- **Monitoring:** Node detail surfaces monitoring graphs, alerts, uptime, action logs, and billing logs.
+- **Billing:** Node billing depends on plan, pricing model, commitment state, stopped or powered-off state, and attached resources.
+
+## Automation Status
+
+Use the MyAccount portal for the workflows described here unless a supported public automation reference is available for your account.

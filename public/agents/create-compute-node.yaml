@@ -1,0 +1,45 @@
+operation: create_compute_node
+product: myaccount
+service: myaccount_compute
+visibility: public
+write_action: true
+destructive_action: false
+committed_resource_action: false
+billing_impact: possible
+security_impact: possible
+confirmation_required: true
+confirmation_message: "This will create a compute node and may create billable infrastructure. Confirm that you want to continue."
+required_inputs:
+  - account
+  - region
+  - plan
+  - image
+  - node_name
+optional_inputs:
+  - ssh_key
+  - network
+  - security_group
+  - volume
+  - backup
+preconditions:
+  - User is authenticated.
+  - Account and billing prerequisites are verified in public docs.
+api:
+  available: false
+  reason: "No approved OpenAPI entry has been linked yet."
+api_spec_status: undocumented
+success_condition:
+  - API success response confirms node creation.
+  - If creation is asynchronous, verified resource state confirms the node reached the documented success state.
+failure_handling:
+  - Show public-safe API or backend error messages.
+  - Do not repeatedly retry without checking the documented failure cause.
+rollback:
+  possible: false
+  reason: "Rollback behavior has not been verified."
+support_required: Sometimes
+agent_rules:
+  - Do not claim success unless the API response confirms success.
+  - Require confirmation before creating the node.
+  - Explain possible billing and security impact before confirmation.
+  - Do not use private operational workarounds.

@@ -1,0 +1,35 @@
+---
+interface Props {
+  name?: string;
+}
+
+const { name = 'docs' } = Astro.props;
+
+const icons: Record<string, string> = {
+  account:
+    'M4 20a8 8 0 0 1 16 0M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z',
+  ai: 'M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1M9 12a3 3 0 1 0 6 0 3 3 0 0 0-6 0Z',
+  api: 'M8 8 4 12l4 4m8-8 4 4-4 4M14 5l-4 14',
+  billing:
+    'M6 3h12v18l-2-1-2 1-2-1-2 1-2-1-2 1V3Zm3 5h6M9 12h6M9 16h4',
+  compute:
+    'M5 7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7Zm4 2h6v6H9V9Zm-6 1h2m14 0h2M3 14h2m14 0h2M10 3v2m4-2v2m-4 14v2m4-2v2',
+  docs:
+    'M7 3h7l5 5v13H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm7 0v5h5M9 13h6M9 17h6',
+  network:
+    'M12 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm0 6v4m-5 4 5-4 5 4M7 19h10',
+  support:
+    'M18 14a6 6 0 1 0-12 0v2a2 2 0 0 0 2 2h1v-5H7v-1a5 5 0 0 1 10 0v1h-2v5h1a2 2 0 0 0 2-2v-2Zm-6 5h3',
+  tir: 'M5 19V5h14v14H5Zm4-10h6M9 13h3m-5 8h10M7 3h10',
+  troubleshoot:
+    'M12 3 2.8 19h18.4L12 3Zm0 5v5m0 4h.01',
+};
+
+const path = icons[name] || icons.docs;
+---
+
+<span class="e2e-card-icon" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d={path} />
+  </svg>
+</span>

@@ -1,0 +1,30 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  icon?: string;
+}
+
+import CardIcon from './CardIcon.astro';
+import { docsPath } from '../utils/docsPath';
+
+const { title, description, href, icon } = Astro.props;
+const iconName =
+  icon ||
+  (title.toLowerCase().includes('tir')
+    ? 'tir'
+    : title.toLowerCase().includes('billing')
+      ? 'billing'
+      : title.toLowerCase().includes('api')
+        ? 'api'
+        : title.toLowerCase().includes('troubleshoot')
+          ? 'troubleshoot'
+          : 'account');
+---
+
+<a class={`e2e-card e2e-card--link e2e-product-card e2e-product-card--${iconName}`} href={docsPath(href)}>
+  <CardIcon name={iconName} />
+  <h3>{title}</h3>
+  <p>{description}</p>
+</a>

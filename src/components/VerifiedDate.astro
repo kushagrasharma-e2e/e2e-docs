@@ -1,0 +1,9 @@
+---
+interface Props {
+  date?: string;
+}
+
+const { date } = Astro.props;
+---
+
+<p class="e2e-meta">Last verified: {date || 'Not yet verified'}</p>

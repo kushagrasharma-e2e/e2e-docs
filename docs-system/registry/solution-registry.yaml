@@ -1,0 +1,44 @@
+metadata:
+  visibility: internal
+  status: draft
+  last_updated: 2026-05-08
+solutions:
+  - id: secure_web_server
+    title: Run a secure web server
+    audience:
+      - new_customer
+      - developer
+    services:
+      - myaccount_compute
+      - myaccount_networking
+      - myaccount_api_auth
+      - myaccount_monitoring
+    public_route: /solutions/secure-web-server/
+    required_docs:
+      - /myaccount/compute/
+    status: planned
+  - id: private_network_workload
+    title: Create a private network workload
+    audience:
+      - developer
+      - architect
+    services:
+      - myaccount_compute
+      - myaccount_networking
+    public_route: /solutions/private-network-workload/
+    required_docs:
+      - /myaccount/compute/
+    status: planned
+  - id: backup_ready_compute_workload
+    title: Set up a backup-ready compute workload
+    audience:
+      - developer
+      - operations
+    services:
+      - myaccount_compute
+      - myaccount_backup
+      - myaccount_storage
+    public_route: /solutions/backup-ready-compute-workload/
+    required_docs:
+      - /myaccount/compute/
+    status: planned

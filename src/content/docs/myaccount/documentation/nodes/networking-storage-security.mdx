@@ -1,0 +1,152 @@
+---
+title: Node Networking, Storage, and Security
+description: Public-safe technical behavior for Node IPs, VPCs, security groups, SSH keys, volumes, backups, encryption, monitoring, and BitNinja.
+product: myaccount
+category: documentation
+service: myaccount_compute
+feature: node_integrations
+audience:
+  - developer
+  - support
+  - qa
+visibility: public
+status: draft
+last_verified: 2026-05-08
+supported_portal: myaccount
+api_available: false
+api_spec_status: missing_from_openapi
+support_assisted: false
+regions: []
+related_api: []
+related_ui:
+  - MyAccount > Products > Nodes > Node detail
+related_services:
+  - myaccount_networking
+  - myaccount_storage
+  - myaccount_backup
+  - myaccount_monitoring
+related_troubleshooting:
+  - /myaccount/documentation/nodes/troubleshooting-edge-cases/
+related_solutions: []
+truth_source:
+  - verified_product_behavior
+llm_safe: true
+agent_actionable: false
+---
+
+# Node Networking, Storage, and Security
+
+Nodes are not isolated compute records. Creation and management frequently call related services for IP addresses, VPCs, security groups, SSH keys, volumes, backups, monitoring, and security add-ons.
+
+## Public IPv4
+
+Traditional Nodes receive a public IPv4 address by default unless the selected series or flow supports launching without one. Old E1-series documentation states that E1 Nodes are launched without a default public IP and can attach a public IP later. Treat this as series-specific behavior.
+
+The Node detail network tab exposes public IP details and actions to reserve or detach public IPs where supported.
+
+## Reserved and Add-On IPv4
+
+A reserved IP is a public IPv4 address allocated to the account until released. It can be used as a primary public IP during creation where supported, reserved from an existing resource, or attached as an add-on IP.
+
+Important edge cases:
+
+- Reserved IPv4 cannot be attached to every Node in a multi-node creation request. Attach reserved IPs individually after creation.
+- Add-on IP detach and reserved IP cleanup can affect Node deletion behavior.
+- Reserved IPs may continue billing after a Node is deleted unless released or handled by the related service.
+
+## Floating IP
+
+A floating IP is a public IP that can move between Nodes for high availability. Floating IP operations are part of networking workflows and should be managed from the relevant networking views.
+
+## Private IPv4 and VPC
+
+The creation flow can enable VPC/private networking. The Node detail network tab supports attaching and detaching VPCs where allowed.
+
+Old docs state:
+
+- A Node can have multiple VPCs attached.
+- A maximum of three VPCs can be attached to a single Node.
+- A maximum of two private IPs from a single VPC can be attached to a Node.
+- Custom VPC attach can include subnet and preferred IP selection.
+- Default VPC attach can assign an available private IP automatically.
+
+The portal enforces the current attach limits and available choices.
+
+## IPv6
+
+IPv6 can be selected in advanced creation settings where available and can be attached to a running Node where the portal shows the option. Availability depends on region, plan, and account eligibility.
+
+## Security Groups
+
+Security groups act as firewall rules for Nodes. The creation flow preselects the default security group for the project and allows selecting or creating a group. The Node detail security tab supports security group attachment and detachment where available.
+
+Important behavior:
+
+- Incorrect security group rules can block SSH or RDP access.
+- Linux Nodes typically need inbound SSH access on port 22.
+- Windows Nodes typically need inbound RDP access on port 3389.
+- The portal can hide or disable security group actions based on state and permissions.
+
+## SSH Keys and Password-Based Login
+
+The creation flow allows selecting existing SSH keys or adding a new key. It also supports disabling password-based SSH login for supported Linux flows.
+
+Old docs state:
+
+- Password-based login is enabled by default on newly launched E2E Nodes.
+- SSH key-based login is not applicable for Windows Nodes.
+- If password-based SSH is disabled and the private key is lost, access can be permanently lost.
+
+Password delivery behavior can vary by operating system and account settings. Use the current portal instructions after the Node is created.
+
+## Disk Encryption
+
+Node disk encryption can be enabled only during Node creation in the current portal flow. It is a permanent setting for the Node lifetime. The portal can expose an optional passphrase when encryption is enabled.
+
+Important behavior:
+
+- Encryption is a creation-time setting.
+- Encryption cannot be disabled from the Node detail page.
+- Snapshot behavior for encrypted Nodes depends on the snapshot service and selected Node configuration.
+
+## Volumes and Root Storage
+
+Nodes have root storage and can attach block storage volumes.
+
+Volume behavior:
+
+- Creation can attach an available volume where supported.
+- Multi-node creation cannot attach one volume to all Nodes at once.
+- Old docs state volume attachment requires the Node to be running or powered off.
+- Volume detach, snapshot, convert-to-committed, and upgrade actions belong to the Storage service and are surfaced from the Node detail volume tab.
+
+Root storage behavior:
+
+- Root storage is part of the Node plan for many series.
+- E1-series documentation says base storage is not included in the plan and must be selected at launch.
+- E1 root storage can be increased after launch where state allows.
+
+## CDP Backup
+
+The creation flow can enable CDP backup. The Node detail page displays backup status, backup size, schedule, frequency, last recovery points, next scheduled run, and MySQL database backup status where the service returns them.
+
+Backup defaults and retention details are owned by the Backup service. Review the current backup settings before launch.
+
+Backup encryption options can be creation-time decisions depending on the selected backup configuration.
+
+## Monitoring and Alerts
+
+The Node detail page includes monitoring graphs, server health, monitoring status, alert triggers, alert configuration, pause/resume behavior, and related uptime or health checks where monitoring is enabled.
+
+Old docs identify monitored metrics including disk space, memory usage, CPU load, CPU utilization, disk read/write operations, disk utilization, and memory utilization.
+
+## BitNinja
+
+BitNinja can be enabled during Node creation and activated for running Nodes where supported. Node detail can show BitNinja status. BitNinja license termination and management belong to the Security service.
+
+## Edge Cases
+
+- Deleting a Node can require reserved IP, backup, or add-on cleanup.
+- VPC attach can fail if a requested private IP is already assigned.
+- Security group misconfiguration can make a Node unreachable while the Node remains healthy.
+- Attached resources can continue billing after Node stop, power off, or deletion unless explicitly released.

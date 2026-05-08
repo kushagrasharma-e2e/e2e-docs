@@ -1,0 +1,9 @@
+---
+interface Props {
+  status: string;
+}
+
+const { status } = Astro.props;
+---
+
+<span class="e2e-status-badge">{status}</span>

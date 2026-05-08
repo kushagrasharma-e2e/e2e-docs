@@ -1,0 +1,128 @@
+---
+title: Node Billing and Plans
+description: Billing-impacting behavior for MyAccount Nodes, including plans, commitments, stop versus power off, E1-series behavior, and upgrades.
+product: myaccount
+category: documentation
+service: myaccount_compute
+feature: node_billing
+audience:
+  - developer
+  - support
+  - qa
+visibility: public
+status: draft
+last_verified: 2026-05-08
+supported_portal: myaccount
+api_available: false
+api_spec_status: missing_from_openapi
+support_assisted: false
+regions: []
+related_api: []
+related_ui:
+  - MyAccount > Products > Nodes
+related_services:
+  - myaccount_billing
+  - myaccount_storage
+  - myaccount_networking
+related_troubleshooting:
+  - /myaccount/documentation/nodes/troubleshooting-edge-cases/
+related_solutions: []
+truth_source:
+  - verified_product_behavior
+llm_safe: true
+agent_actionable: false
+---
+
+# Node Billing and Plans
+
+Node creation and management include billing-impacting actions. The portal shows estimates and plan choices, but the billing view and invoice records are authoritative for charges, commitments, refunds, and usage records.
+
+## Plan Selection
+
+Node plans are selected after the user chooses an OS or image. Plans expose CPU, RAM, storage, IOPS, and pricing metadata. The exact plan list depends on:
+
+- Selected OS and version.
+- Image category.
+- Region or location.
+- Node family or display category.
+- Customer/project eligibility.
+- Availability of GPU, CPU, marketplace, Windows, saved-image, or imported-image options.
+
+Available plans depend on the selected image, region, account eligibility, and current catalog.
+
+## Pricing Models
+
+The UI exposes on-demand and committed or savings-plan pricing where available. Treat exact prices, discounts, and terms as current billing data shown in the portal or invoice views.
+
+Committed plans are billing-impacting and should require explicit confirmation in any agent or automation workflow.
+
+## Convert to Committed
+
+Eligible on-demand Nodes can be converted to committed billing through the Node detail action. Eligibility and pricing depend on the selected Node and current account state.
+
+## Power Off Versus Stop
+
+Power off and stop have different billing behavior:
+
+| Behavior | Power off | Stop |
+| --- | --- | --- |
+| Compute allocation | Remains on the host | Deallocated or undeployed from host |
+| Typical start time | Faster | Slower |
+| Billing | Continues for the Node unless product-specific rules say otherwise | Eligible E1-series Nodes can pause compute billing |
+| Attached resources | Continue billing where applicable | Continue billing where applicable |
+
+Do not tell users that power off stops billing. Old docs explicitly state the opposite for regular power off.
+
+## E1-Series Behavior
+
+E1-series Nodes can have special behavior:
+
+- Compute billing pauses when the Node is stopped.
+- Storage and attached resources continue billing while stopped.
+- Nodes launch without a default public IP.
+- A public IP can be attached after creation.
+- Base storage is not included in the plan.
+- Root storage must be selected at launch.
+- Root storage size can be increased later.
+- vCPU/RAM plan modification supports upgrade and downgrade while powered off.
+- Root storage cannot be increased while stopped.
+- Project transfer is currently disabled.
+
+Review the portal and billing views for current prices and eligibility.
+
+## Root Storage Billing
+
+For E1-series root storage:
+
+- Default root storage size is 150 GB.
+- Root storage can be selected from 75 GB to 2400 GB.
+- Sizes increase in 25 GB steps up to 150 GB and in 50 GB steps after 150 GB.
+- IOPS increases with storage growth after the threshold.
+
+The portal shows the accepted target sizes for an individual account and Node.
+
+## Backup, Snapshot, Volume, and IP Billing
+
+Nodes can trigger billing for related services:
+
+- CDP backup plans.
+- Snapshot usage.
+- Attached block storage volumes.
+- Reserved IP or floating IP allocations.
+- BitNinja or security add-on licensing.
+- Monitoring or alerting if billed separately.
+
+Snapshot charges depend on the snapshot and storage billing rules currently shown in the account.
+
+## Delete and Billing
+
+Terminating a Node stops future Node compute billing after the termination succeeds, but related resources may continue billing if they remain allocated. This includes reserved IPs, volumes, snapshots, backups, saved images, and security add-ons.
+
+Do not assume billing has stopped until the Node is terminated and related resources are separately checked.
+
+## Notes
+
+- UI estimates are not invoices.
+- Plan discounts, prices, and available terms can change.
+- Billing logs can be visible on Node detail, but full invoice and ledger behavior belongs to Account & Billing.
+- Stop behavior is series-specific. If the Node is not E1-series, verify billing behavior before telling users that compute billing pauses.

@@ -1,0 +1,24 @@
+# E2E Cloud Docs
+
+E2E Cloud Docs contains public documentation for MyAccount, TIR, Account & Billing, API & Automation, Troubleshooting, Solutions, Release Notes, LLM context, and public-safe agent specs.
+
+Primary product areas:
+
+- MyAccount
+- TIR
+- Account & Billing
+- API & Automation
+- Troubleshooting
+
+Answer rules:
+
+- Use only public docs, public API docs, public troubleshooting docs, public reference docs, public LLM context, public release notes, and public agent specs.
+- Do not invent pricing.
+- Do not invent regions.
+- Do not invent unsupported APIs.
+- Do not claim all services are available everywhere.
+- Do not claim a resource was created unless API success confirms it.
+- Do not expose private operating process.
+- Do not provide customer-specific advice without required context.
+
+Full context: /e2e-docs/llms-full.txt

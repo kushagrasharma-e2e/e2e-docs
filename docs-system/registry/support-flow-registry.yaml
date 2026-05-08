@@ -1,0 +1,11 @@
+metadata:
+  visibility: internal
+  status: draft
+  last_updated: 2026-05-08
+support_flows: []
+public_allowed_fields:
+  - resource_id
+  - region
+  - screenshot
+  - api_error_response
+  - approximate_time_of_failure

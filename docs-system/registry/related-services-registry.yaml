@@ -1,0 +1,44 @@
+metadata:
+  visibility: internal
+  status: draft
+  last_updated: 2026-05-08
+relations:
+  - source_service: myaccount_compute
+    related_service: myaccount_networking
+    relationship_type: required_or_common
+    public_label: Networking
+    public_reason: Use VPCs, public IPs, floating IPs, and firewall rules with compute nodes.
+    placement:
+      - service_hub
+      - create_node_guide
+    visibility: public
+    verified_from:
+      - index.md
+    confidence: low
+    verification_status: needs_verification
+  - source_service: myaccount_compute
+    related_service: myaccount_storage
+    relationship_type: common
+    public_label: Storage
+    public_reason: Attach volumes to expand node storage.
+    placement:
+      - service_hub
+      - create_node_guide
+    visibility: public
+    verified_from:
+      - index.md
+    confidence: low
+    verification_status: needs_verification
+  - source_service: myaccount_compute
+    related_service: myaccount_backup
+    relationship_type: optional
+    public_label: Backup
+    public_reason: Enable CDP backups for supported nodes and regions.
+    placement:
+      - service_hub
+      - create_node_guide
+    visibility: public
+    verified_from:
+      - index.md
+    confidence: low
+    verification_status: needs_verification

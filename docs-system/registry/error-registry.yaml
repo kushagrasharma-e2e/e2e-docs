@@ -1,0 +1,7 @@
+metadata:
+  visibility: internal
+  status: draft
+  last_updated: 2026-05-08
+errors: []
+coverage_defaults:
+  public_safe_errors_without_docs: missing

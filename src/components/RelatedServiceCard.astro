@@ -1,0 +1,37 @@
+---
+interface Props {
+  label: string;
+  reason: string;
+  href?: string;
+  icon?: string;
+}
+
+import CardIcon from './CardIcon.astro';
+
+const { label, reason, href, icon } = Astro.props;
+const iconName =
+  icon ||
+  (label.toLowerCase().includes('network')
+    ? 'network'
+    : label.toLowerCase().includes('billing')
+      ? 'billing'
+      : label.toLowerCase().includes('monitor')
+        ? 'ai'
+        : 'docs');
+---
+
+{
+  href ? (
+    <a class="e2e-card e2e-card--link e2e-related-card" href={href}>
+      <CardIcon name={iconName} />
+      <h3>{label}</h3>
+      <p>{reason}</p>
+    </a>
+  ) : (
+    <div class="e2e-card e2e-related-card">
+      <CardIcon name={iconName} />
+      <h3>{label}</h3>
+      <p>{reason}</p>
+    </div>
+  )
+}

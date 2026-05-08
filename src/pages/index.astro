@@ -1,0 +1,175 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import ProductCard from '../components/ProductCard.astro';
+import HomeHeader from '../components/HomeHeader.astro';
+import { docsPath } from '../utils/docsPath';
+import '../styles/global.css';
+
+const quickPaths = [
+  { title: 'I am new to E2E Cloud', href: '/start-here/', detail: 'Start with product basics, account setup, and first services.', icon: 'docs' },
+  { title: 'I want to create a node', href: '/myaccount/compute/getting-started/create-node/', detail: 'Use the Compute hub and the first getting-started guide.', icon: 'compute' },
+  { title: 'I want to use TIR', href: '/tir/', detail: 'Follow the AI journey from billing through notebooks and inference.', icon: 'tir' },
+  { title: 'I want to understand billing', href: '/account-billing/', detail: 'Use the shared Account & Billing area for MyAccount and TIR.', icon: 'billing' },
+  { title: 'I am seeing an error', href: '/myaccount/troubleshooting/', detail: 'Find troubleshooting by exact error message or visible issue.', icon: 'troubleshoot' },
+];
+
+const popularTasks = [
+  { title: 'Create a compute node', href: '/myaccount/compute/getting-started/create-node/', meta: 'MyAccount · Compute' },
+  { title: 'Access a compute node', href: '/myaccount/compute/how-to/access-node/', meta: 'MyAccount · Compute' },
+  { title: 'Review node states', href: '/myaccount/compute/reference/node-states/', meta: 'Reference' },
+  { title: 'Understand shared billing', href: '/account-billing/', meta: 'Account & Billing' },
+  { title: 'Troubleshoot an error', href: '/myaccount/troubleshooting/', meta: 'MyAccount · Troubleshooting' },
+];
+
+const productCards = [
+  {
+    title: 'Start with MyAccount',
+    href: '/myaccount/',
+    icon: 'account',
+    description: 'Manage cloud infrastructure, account settings, billing, API access, and support.',
+  },
+  {
+    title: 'Start with TIR',
+    href: '/tir/',
+    icon: 'tir',
+    description: 'Launch notebooks, manage datasets, train models, deploy inference, and automate AI workflows.',
+  },
+  {
+    title: 'Account & Billing',
+    href: '/account-billing/',
+    icon: 'billing',
+    description: 'Set up your account, add credits, and manage invoices before using MyAccount or TIR resources.',
+  },
+  {
+    title: 'Troubleshoot an error',
+    href: '/myaccount/troubleshooting/',
+    icon: 'troubleshoot',
+    description: 'Find guidance by error message — likely cause, what to do, support requirements, and next action.',
+  },
+];
+
+const linkGroups = [
+  {
+    title: 'Essentials',
+    links: [
+      { title: 'Start Here', href: '/start-here/' },
+      { title: 'Account & Billing', href: '/account-billing/' },
+      { title: 'MyAccount Compute', href: '/myaccount/compute/' },
+      { title: 'MyAccount Guides', href: '/myaccount/guides/' },
+    ],
+  },
+  {
+    title: 'TIR Platform',
+    links: [
+      { title: 'TIR Overview', href: '/tir/' },
+      { title: 'TIR Documentation', href: '/tir/documentation/' },
+      { title: 'TIR Guides', href: '/tir/guides/' },
+      { title: 'TIR Developer', href: '/tir/api-automation/' },
+    ],
+  },
+  {
+    title: 'Popular topics',
+    links: [
+      { title: 'Create a compute node', href: '/myaccount/compute/getting-started/create-node/' },
+      { title: 'Access a compute node', href: '/myaccount/compute/how-to/access-node/' },
+      { title: 'Node states', href: '/myaccount/compute/reference/node-states/' },
+      { title: 'Troubleshooting', href: '/myaccount/troubleshooting/' },
+    ],
+  },
+];
+---
+
+<head>
+  <ClientRouter fallback="swap" />
+</head>
+
+<HomeHeader />
+<main class="docs-home">
+  <section class="docs-hero">
+    <div class="docs-hero__content">
+      <p class="docs-eyebrow">E2E Cloud documentation</p>
+      <h1><span class="docs-hero__accent">E2E Cloud</span> Docs</h1>
+      <p class="docs-hero__copy">
+        Source-backed documentation for MyAccount infrastructure, TIR AI platform, and shared account and billing.
+      </p>
+      <div class="docs-search-panel" role="search" aria-label="Docs search shortcuts">
+        <div class="docs-search-panel__input" aria-hidden="true">
+          <span class="docs-search-panel__icon"></span>
+          <span>Ask or search the docs</span>
+        </div>
+      </div>
+      <div class="docs-hero__actions">
+        <a class="docs-button" href={docsPath('/myaccount/')}>Start with MyAccount</a>
+        <a class="docs-button" href={docsPath('/tir/')}>Start with TIR</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-band docs-band--intro" aria-labelledby="products-heading">
+    <div class="docs-section">
+      <div class="docs-section__header">
+        <h2 id="products-heading">Browse the docs</h2>
+      </div>
+      <div class="e2e-card-grid docs-product-grid">
+        {productCards.map((card) => <ProductCard {...card} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section docs-link-groups" aria-label="Documentation topics">
+    {linkGroups.map((group) => (
+      <section class="docs-link-group" aria-labelledby={`group-${group.title.toLowerCase().replaceAll(' ', '-')}`}>
+        <h2 id={`group-${group.title.toLowerCase().replaceAll(' ', '-')}`}>{group.title}</h2>
+        <ul>
+          {group.links.map((link) => (
+            <li><a href={docsPath(link.href)}>{link.title}</a></li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </section>
+
+  <section class="docs-section docs-quick-strip" aria-labelledby="quick-paths-heading">
+    <div>
+      <h2 id="quick-paths-heading">Quick paths</h2>
+      <p>Choose by intent when you already know what you need.</p>
+    </div>
+    <div class="docs-path-grid">
+      {quickPaths.map((path) => <a class="docs-path" href={docsPath(path.href)}>{path.title}</a>)}
+    </div>
+  </section>
+
+  <section class="docs-band" aria-labelledby="popular-heading">
+    <div class="docs-section docs-split">
+      <div class="docs-section__header">
+        <h2 id="popular-heading">Popular tasks</h2>
+        <p>
+          The most visited docs across MyAccount and TIR.
+        </p>
+      </div>
+      <div class="docs-task-list">
+        {popularTasks.map((task) => (
+          <a class="docs-task" href={docsPath(task.href)}>
+            <span>{task.title}</span>
+            <small>{task.meta}</small>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="docs-section docs-trust" aria-label="Documentation quality signals">
+    <div>
+      <strong>Public-safe by default</strong>
+      <span>Internal runbooks, private links, source paths, and customer data stay out of public docs.</span>
+    </div>
+    <div>
+      <strong>Source-backed direction</strong>
+      <span>Behavior comes from backend, frontend, OpenAPI, and verified registries.</span>
+    </div>
+    <div>
+      <strong>Verified against product</strong>
+      <span>Docs are checked against real product behavior, not copied from existing documentation.</span>
+    </div>
+  </section>
+</main>

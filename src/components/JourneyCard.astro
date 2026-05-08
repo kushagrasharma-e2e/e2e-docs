@@ -1,0 +1,38 @@
+---
+interface Props {
+  title: string;
+  href: string;
+  description?: string;
+  icon?: string;
+}
+
+import CardIcon from './CardIcon.astro';
+
+const { title, href, description, icon } = Astro.props;
+const normalizedTitle = title.toLowerCase();
+const iconName =
+  icon ||
+  (normalizedTitle.includes('node')
+    ? 'compute'
+    : normalizedTitle.includes('credit') ||
+        normalizedTitle.includes('billing') ||
+        normalizedTitle.includes('invoice') ||
+        normalizedTitle.includes('account')
+      ? 'billing'
+      : normalizedTitle.includes('api') || normalizedTitle.includes('automate')
+        ? 'api'
+        : normalizedTitle.includes('tir') ||
+            normalizedTitle.includes('notebook') ||
+            normalizedTitle.includes('model') ||
+            normalizedTitle.includes('inference')
+          ? 'tir'
+          : normalizedTitle.includes('support')
+            ? 'support'
+            : 'docs');
+---
+
+<a class="e2e-card e2e-card--link e2e-journey-card" href={href}>
+  <CardIcon name={iconName} />
+  <h3>{title}</h3>
+  {description && <p>{description}</p>}
+</a>

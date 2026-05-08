@@ -1,0 +1,49 @@
+{
+  "name": "e2e-docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "lint:md": "markdownlint '**/*.{md,mdx}'",
+    "validate": "npm run validate:frontmatter && npm run validate:boundary && npm run validate:links && npm run validate:api && npm run validate:errors && npm run validate:agents && npm run validate:llm && npm run validate:service-hubs && npm run validate:related-services && npm run validate:docs-coverage && npm run validate:openapi",
+    "validate:frontmatter": "tsx docs-system/validation/check-frontmatter.ts",
+    "validate:boundary": "tsx docs-system/validation/check-public-internal-boundary.ts",
+    "validate:links": "tsx docs-system/validation/check-links.ts",
+    "validate:api": "tsx docs-system/validation/check-api-coverage.ts",
+    "validate:errors": "tsx docs-system/validation/check-error-coverage.ts",
+    "validate:agents": "tsx docs-system/validation/check-agent-specs.ts",
+    "validate:llm": "tsx docs-system/validation/check-llm-context.ts",
+    "validate:service-hubs": "tsx docs-system/validation/check-service-hubs.ts",
+    "validate:related-services": "tsx docs-system/validation/check-related-services.ts",
+    "validate:docs-coverage": "tsx docs-system/validation/check-docs-coverage.ts",
+    "validate:openapi": "tsx docs-system/validation/check-openapi-backend-match.ts",
+    "validate:stale-pages": "tsx docs-system/validation/report-stale-pages.ts",
+    "extract:backend": "tsx docs-system/scripts/extract-backend.ts",
+    "extract:frontend": "tsx docs-system/scripts/extract-frontend.ts",
+    "extract:openapi": "tsx docs-system/scripts/extract-openapi.ts",
+    "compare:openapi": "tsx docs-system/scripts/compare-openapi-backend.ts",
+    "generate:docs": "tsx docs-system/scripts/generate-docs.ts",
+    "generate:llms": "tsx docs-system/scripts/generate-llms.ts",
+    "generate:agents": "tsx docs-system/scripts/generate-agent-specs.ts"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "latest",
+    "astro": "latest",
+    "pagefind": "latest",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "astro-eslint-parser": "latest",
+    "eslint": "latest",
+    "markdownlint-cli": "latest",
+    "prettier": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}

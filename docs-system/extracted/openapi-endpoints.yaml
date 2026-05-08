@@ -1,0 +1,11 @@
+metadata:
+  visibility: internal
+  status: draft
+  generated_from:
+    - openapi
+  last_updated: 2026-05-08
+endpoints: []
+known_gap:
+  - id: repository_local_openapi_sources
+    status: missing
+    note: No repository-local OpenAPI source directory has been confirmed yet.

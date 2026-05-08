@@ -1,0 +1,13 @@
+---
+interface Props {
+  text?: string;
+}
+
+const {
+  text = 'This page is public-safe and must not include internal source paths, private links, customer data, credentials, or QA-only notes.',
+} = Astro.props;
+---
+
+<aside class="e2e-card">
+  <p>{text}</p>
+</aside>

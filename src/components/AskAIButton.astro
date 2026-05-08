@@ -1,0 +1,11 @@
+---
+interface Props {
+  label?: string;
+}
+
+import { docsPath } from '../utils/docsPath';
+
+const { label = 'Ask AI' } = Astro.props;
+---
+
+<a class="sl-link-button" href={docsPath('/ai-context/')} data-ask-ai>{label}</a>

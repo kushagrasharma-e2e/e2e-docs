@@ -1,0 +1,32 @@
+metadata:
+  visibility: internal
+  status: draft
+  last_updated: 2026-05-08
+blocked_paths:
+  - internal-docs/
+  - docs-system/source/
+  - docs-system/generated/internal-docs/
+  - "**/internal-runbook.md"
+  - "**/validation-notes.md"
+blocked_link_fragments:
+  - /internal/
+  - internal-docs/
+  - internal-runbook.md
+  - validation-notes.md
+blocked_terms:
+  - private Slack
+  - private Jira
+  - database query
+  - manual backend correction
+conditional_terms:
+  token:
+    allowed_in:
+      - api
+      - authentication
+  password:
+    allowed_in:
+      - user-login
+      - compute-access
+  ssh_key:
+    allowed_in:
+      - compute-access

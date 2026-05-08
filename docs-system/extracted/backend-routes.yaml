@@ -1,0 +1,10 @@
+metadata:
+  visibility: internal
+  status: draft
+  generated_from:
+    - backend_code
+  last_updated: 2026-05-08
+routes: []
+needs_extraction:
+  - backend/e2e_sites/e2e_sites/urls.py
+  - backend/e2e_sites/node/urls.py

@@ -1,0 +1,151 @@
+---
+import { docsPath, stripDocsBase } from '../utils/docsPath';
+
+const path = stripDocsBase(Astro.url.pathname);
+const isMyAccount = path.startsWith('/myaccount');
+const isTir = path.startsWith('/tir');
+
+const isProductPage = isMyAccount || isTir;
+const base = isMyAccount ? '/myaccount' : '/tir';
+
+const sections = isProductPage
+  ? [
+      {
+        label: 'Documentation',
+        href: `${base}/documentation/`,
+        active: path.startsWith(`${base}/documentation`),
+      },
+      {
+        label: 'Guides',
+        href: `${base}/guides/`,
+        active:
+          path.startsWith(`${base}/guides`) ||
+          path.startsWith(`${base}/compute`) ||
+          path.startsWith(`${base}/networking`) ||
+          path.startsWith(`${base}/storage`) ||
+          path.startsWith(`${base}/backup`) ||
+          path.startsWith(`${base}/notebooks`) ||
+          path.startsWith(`${base}/datasets`) ||
+          path.startsWith(`${base}/training`) ||
+          path.startsWith(`${base}/inference`) ||
+          path.startsWith(`${base}/genai-api`) ||
+          path.startsWith(`${base}/terraform`),
+      },
+      {
+        label: 'Developer',
+        href: `${base}/api-automation/`,
+        active: path.startsWith(`${base}/api-automation`),
+      },
+      {
+        label: 'Troubleshooting',
+        href: `${base}/troubleshooting/`,
+        active: path.startsWith(`${base}/troubleshooting`),
+      },
+    ]
+  : [];
+---
+
+{
+  isProductPage && (
+    <nav class="section-nav" aria-label={`${isMyAccount ? 'MyAccount' : 'TIR'} sections`}>
+      <div class="section-nav__inner">
+        <span class="section-nav__product">{isMyAccount ? 'MyAccount' : 'TIR'}</span>
+        <div class="section-nav__divider" aria-hidden="true" />
+        {sections.map((s) => (
+          <a
+            href={docsPath(s.href)}
+            class:list={['section-nav__link', { 'is-active': s.active }]}
+            aria-current={s.active ? 'page' : undefined}
+          >
+            {s.label}
+          </a>
+        ))}
+      </div>
+    </nav>
+  )
+}
+
+{
+  !isProductPage && (
+    <div class="section-nav section-nav--global" aria-hidden="true" />
+  )
+}
+
+<style>
+  .section-nav {
+    width: 100%;
+    height: var(--e2e-subnav-height, 2.5rem);
+    border-top: 1px solid var(--e2e-border);
+    background: var(--sl-color-bg-nav);
+    display: flex;
+    align-items: stretch;
+  }
+
+  .section-nav--global {
+    border-top: 1px solid var(--e2e-border);
+  }
+
+  .section-nav__inner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding-inline: var(--sl-nav-pad-x);
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .section-nav__inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .section-nav__divider {
+    width: 1px;
+    height: 1rem;
+    background: var(--e2e-border-strong);
+    margin-inline-end: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .section-nav__link {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 0.85rem;
+    font-size: 0.84rem;
+    font-weight: 580;
+    color: var(--e2e-text-soft);
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: color 150ms ease, border-color 150ms ease;
+    position: relative;
+  }
+
+  .section-nav__link:hover {
+    color: var(--e2e-text);
+  }
+
+  .section-nav__link.is-active {
+    color: var(--e2e-accent);
+    border-bottom-color: var(--e2e-accent);
+    font-weight: 700;
+  }
+
+  .section-nav__product {
+    display: inline-flex;
+    align-items: center;
+    height: 1.5rem;
+    padding: 0 0.55rem;
+    border: 1px solid var(--e2e-border);
+    border-radius: 999px;
+    background: var(--e2e-bg-soft);
+    font-size: 0.72rem;
+    font-weight: 720;
+    color: var(--e2e-text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-inline-end: 0.25rem;
+  }
+</style>

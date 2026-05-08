@@ -1,0 +1,29 @@
+# E2E Cloud Docs Full Public Context
+
+This is a draft public-safe context file. It must be generated from registries and public docs before release.
+
+Canonical sections:
+
+- /e2e-docs/start-here/
+- /e2e-docs/myaccount/
+- /e2e-docs/myaccount/compute/
+- /e2e-docs/tir/
+- /e2e-docs/account-billing/
+- /e2e-docs/api/
+- /e2e-docs/troubleshooting/
+- /e2e-docs/solutions/
+- /e2e-docs/support-assisted/
+- /e2e-docs/release-notes/
+- /e2e-docs/ai-context/
+
+Agent safety:
+
+- Require confirmation for resource creation, resource deletion, committed resource operations, billing-impacting actions, infrastructure-modifying actions, and security-impacting actions.
+- Do not claim success unless the API response confirms success.
+- Show public-safe backend or API errors on failure.
+- Do not use private operational workarounds.
+
+Current status:
+
+- The documentation system scaffold exists.
+- Product facts still need source extraction and validation before publication.

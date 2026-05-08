@@ -1,0 +1,12 @@
+metadata:
+  visibility: internal
+  status: draft
+  last_updated: 2026-05-08
+apis: []
+known_gaps:
+  - id: openapi_sources_not_confirmed
+    product: shared
+    service: api_automation
+    api_spec_status: undocumented
+    problem: repository_local_openapi_sources_missing
+    status: unresolved

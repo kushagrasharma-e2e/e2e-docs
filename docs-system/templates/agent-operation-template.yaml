@@ -1,0 +1,28 @@
+operation: "{{operation_id}}"
+product: "{{product}}"
+service: "{{service_id}}"
+visibility: public
+write_action: false
+destructive_action: false
+committed_resource_action: false
+billing_impact: unknown
+security_impact: unknown
+confirmation_required: false
+confirmation_message: ""
+required_inputs: []
+optional_inputs: []
+preconditions: []
+api:
+  available: false
+  reason: "No approved OpenAPI entry has been linked yet."
+api_spec_status: undocumented
+success_condition: []
+failure_handling: []
+rollback:
+  possible: false
+  reason: "Rollback behavior has not been verified."
+support_required: Sometimes
+agent_rules:
+  - Do not claim success unless the API response confirms success.
+  - Do not use internal-only workarounds.
+  - Show public-safe backend errors on failure.

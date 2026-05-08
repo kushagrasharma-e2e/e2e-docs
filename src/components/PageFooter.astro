@@ -1,0 +1,149 @@
+---
+import { existsSync, statSync } from 'node:fs';
+import { join } from 'node:path';
+import Pagination from 'virtual:starlight/components/Pagination';
+
+type StarlightRoute = {
+  entry?: {
+    id?: string;
+    filePath?: string;
+    data?: {
+      title?: string;
+      last_verified?: string | Date;
+    };
+  };
+  lastUpdated?: Date;
+  editUrl?: URL;
+};
+
+const route = Astro.locals.starlightRoute as StarlightRoute | undefined;
+const pageTitle = route?.entry?.data?.title ?? route?.entry?.id ?? 'documentation page';
+const filePath = route?.entry?.filePath;
+
+function normalizeDate(value: unknown): Date | undefined {
+  if (value instanceof Date && !Number.isNaN(value.valueOf())) return value;
+  if (typeof value === 'string' && value.trim()) {
+    const date = new Date(value);
+    if (!Number.isNaN(date.valueOf())) return date;
+  }
+  return undefined;
+}
+
+function fileModifiedDate(path: string | undefined): Date | undefined {
+  if (!path) return undefined;
+
+  const candidates = [path, join(process.cwd(), path)];
+  for (const candidate of candidates) {
+    if (!existsSync(candidate)) continue;
+    const stats = statSync(candidate);
+    return stats.mtime;
+  }
+
+  return undefined;
+}
+
+function relativeTime(date: Date): string {
+  const now = new Date();
+  const elapsedMs = now.valueOf() - date.valueOf();
+  if (elapsedMs <= 0) return 'today';
+
+  const seconds = Math.floor(elapsedMs / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(days / 365);
+
+  if (seconds < 60) return 'just now';
+  if (minutes < 60) return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
+  if (hours < 24) return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
+  if (days < 7) return `${days} ${days === 1 ? 'day' : 'days'} ago`;
+  if (days < 30) {
+    const weeks = Math.floor(days / 7);
+    return `${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`;
+  }
+  if (days < 365) return `${months} ${months === 1 ? 'month' : 'months'} ago`;
+  return `${years} ${years === 1 ? 'year' : 'years'} ago`;
+}
+
+function trimTrailingSlash(value: string): string {
+  return value.replace(/\/+$/, '');
+}
+
+const lastUpdated =
+  normalizeDate(route?.lastUpdated) ??
+  fileModifiedDate(filePath) ??
+  normalizeDate(route?.entry?.data?.last_verified);
+
+const repoUrl = import.meta.env.PUBLIC_DOCS_GITHUB_REPO_URL
+  ? trimTrailingSlash(import.meta.env.PUBLIC_DOCS_GITHUB_REPO_URL)
+  : '';
+const repoBranch = import.meta.env.PUBLIC_DOCS_GITHUB_BRANCH || 'main';
+const issueUrlFromEnv = import.meta.env.PUBLIC_DOCS_GITHUB_ISSUE_URL
+  ? import.meta.env.PUBLIC_DOCS_GITHUB_ISSUE_URL
+  : '';
+
+const normalizedFilePath = filePath?.replace(/^\/+/, '');
+const editUrl =
+  route?.editUrl?.toString() ||
+  (repoUrl && normalizedFilePath
+    ? `${repoUrl}/edit/${repoBranch}/${normalizedFilePath}`
+    : undefined);
+const issueUrl =
+  issueUrlFromEnv ||
+  (repoUrl
+    ? `${repoUrl}/issues/new?title=${encodeURIComponent(`Docs issue: ${pageTitle}`)}&body=${encodeURIComponent(
+        `Page: ${Astro.url.pathname}\n\nDescribe the issue or suggested update:\n`
+      )}`
+    : undefined);
+---
+
+<footer class="e2e-page-footer">
+  <div class="e2e-page-meta" aria-label="Page metadata">
+    {lastUpdated && <p>Last updated {relativeTime(lastUpdated)}</p>}
+    <p>
+      {
+        editUrl ? (
+          <a href={editUrl}>Edit this page on GitHub</a>
+        ) : (
+          <span>Edit this page on GitHub</span>
+        )
+      }
+      {' or '}
+      {issueUrl ? <a href={issueUrl}>file an issue</a> : <span>file an issue</span>}.
+    </p>
+  </div>
+
+  <Pagination />
+</footer>
+
+<style>
+  .e2e-page-footer {
+    margin-top: 4rem;
+  }
+
+  .e2e-page-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 1rem;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sl-color-gray-5);
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-sm);
+  }
+
+  .e2e-page-meta p {
+    margin: 0;
+  }
+
+  .e2e-page-meta a {
+    color: var(--sl-color-text-accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .e2e-page-meta a:hover {
+    text-decoration: underline;
+  }
+</style>

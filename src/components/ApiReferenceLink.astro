@@ -1,0 +1,12 @@
+---
+interface Props {
+  href: string;
+  label?: string;
+}
+
+import { docsPath } from '../utils/docsPath';
+
+const { href, label = 'API reference' } = Astro.props;
+---
+
+<a class="sl-link-button" href={docsPath(href)}>{label}</a>

@@ -1,0 +1,13 @@
+---
+interface Props {
+  message: string;
+  source?: 'UI' | 'Backend' | 'API';
+}
+
+const { message, source = 'Error' } = Astro.props;
+---
+
+<figure class="e2e-card">
+  <figcaption class="e2e-meta">{source} message</figcaption>
+  <pre><code>{message}</code></pre>
+</figure>

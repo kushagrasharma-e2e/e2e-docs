@@ -1,0 +1,82 @@
+---
+title: Create a Compute Node
+description: Draft getting-started guide for creating a MyAccount compute node.
+product: myaccount
+category: getting-started
+service: myaccount_compute
+feature: create-node
+audience:
+  - new_customer
+  - developer
+visibility: public
+status: draft
+last_verified: 2026-05-08
+supported_portal: myaccount
+api_available: true
+api_spec_status: undocumented
+support_assisted: false
+regions: []
+related_api:
+  - /api/
+related_ui:
+  - products/create-node
+related_services:
+  - myaccount_networking
+  - myaccount_storage
+  - myaccount_backup
+  - myaccount_billing
+related_troubleshooting:
+  - /myaccount/compute/troubleshooting/
+related_solutions:
+  - /solutions/
+truth_source:
+  - index.md
+llm_safe: true
+agent_actionable: true
+---
+
+import AutomateThis from '../../../../../components/AutomateThis.astro';
+import NextStep from '../../../../../components/NextStep.astro';
+
+# Create a Compute Node
+
+## What this is
+
+This draft guide is a placeholder for the first MyAccount Compute vertical slice. Final steps must come from frontend route and component extraction, then be checked against backend behavior.
+
+## When to use this
+
+Use this guide when you want to create a compute node in MyAccount.
+
+## Before you begin
+
+- Confirm the account and billing prerequisites from backend and frontend sources.
+- Confirm available plans, images, networking, storage, and backup options from verified sources.
+- Confirm whether an approved OpenAPI spec exists before publishing API automation details.
+
+## Steps
+
+1. Extract the user journey from the MyAccount frontend create-node flow.
+2. Extract backend create-node behavior, validations, errors, permissions, lifecycle, billing, quota, and region constraints.
+3. Compare backend behavior with approved OpenAPI specs.
+4. Replace this draft with verified, step-based instructions using exact UI labels from frontend code.
+
+## Important notes
+
+Existing docs are reference material only. Do not reuse old create-node instructions as final public documentation until they are verified.
+
+## Automate this
+
+<AutomateThis apiHref="/api/" agentHref="/api/agent-specs/">
+  API automation must link to generated OpenAPI-backed API docs. Agent operations must require confirmation for node creation because it can create infrastructure and may affect billing.
+</AutomateThis>
+
+## Related pages
+
+- [MyAccount Compute](/e2e-docs/myaccount/compute/)
+- [API & Automation](/e2e-docs/api/)
+- [Troubleshooting](/e2e-docs/troubleshooting/)
+
+## Next step
+
+<NextStep href="/e2e-docs/myaccount/compute/reference/node-states/" label="Review compute node states and lifecycle" />

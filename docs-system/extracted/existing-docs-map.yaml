@@ -1,0 +1,10 @@
+metadata:
+  visibility: internal
+  status: draft
+  generated_from:
+    - existing_docs
+  last_updated: 2026-05-08
+docs: []
+defaults:
+  accuracy_status: unverified
+  reuse_allowed: false

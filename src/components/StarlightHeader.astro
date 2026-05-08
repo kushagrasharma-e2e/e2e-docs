@@ -1,0 +1,170 @@
+---
+import config from 'virtual:starlight/user-config';
+
+import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
+import Search from 'virtual:starlight/components/Search';
+import SiteTitle from 'virtual:starlight/components/SiteTitle';
+import SocialIcons from 'virtual:starlight/components/SocialIcons';
+import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
+import ProductSectionNav from './ProductSectionNav.astro';
+import { docsPath, stripDocsBase } from '../utils/docsPath';
+
+const shouldRenderSearch =
+  config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
+
+const path = stripDocsBase(Astro.url.pathname);
+const isMyAccount = path.startsWith('/myaccount');
+const isTir = path.startsWith('/tir');
+---
+
+<div class="e2e-header">
+  <!-- Row 1: Logo / Search / Product switcher / Theme -->
+  <div class="e2e-header__row e2e-header__row--main">
+    <div class="e2e-header__title">
+      <SiteTitle />
+    </div>
+
+    <div class="e2e-header__center sl-flex print:hidden">
+      {shouldRenderSearch && <Search />}
+    </div>
+
+    <div class="e2e-header__right sl-hidden md:sl-flex print:hidden">
+      <!-- Product switcher pill -->
+      <nav class="product-switcher" aria-label="Switch product">
+        <a
+          href={docsPath('/myaccount/')}
+          class:list={['product-switcher__link', { 'is-active': isMyAccount }]}
+          aria-current={isMyAccount ? 'true' : undefined}
+        >
+          MyAccount
+        </a>
+        <a
+          href={docsPath('/tir/')}
+          class:list={['product-switcher__link', { 'is-active': isTir }]}
+          aria-current={isTir ? 'true' : undefined}
+        >
+          TIR
+        </a>
+      </nav>
+
+      <div class="e2e-header__social sl-flex">
+        <SocialIcons />
+      </div>
+      <ThemeSelect />
+      <LanguageSelect />
+    </div>
+  </div>
+
+  <!-- Row 2: Product section tabs (Overview / Guides / API & Automation / Troubleshooting) -->
+  <ProductSectionNav />
+</div>
+
+<style>
+  @layer starlight.core {
+    /* Override Starlight's header height to fit two rows */
+    :global(:root) {
+      --e2e-subnav-height: 2.5rem;
+      --sl-nav-height: calc(3.5rem + var(--e2e-subnav-height));
+    }
+
+    @media (min-width: 50rem) {
+      :global(:root) {
+        --sl-nav-height: calc(4rem + var(--e2e-subnav-height));
+      }
+    }
+
+    /* Make the outer <header class="header"> fill height via content instead of fixed height */
+    :global(.header) {
+      height: auto !important;
+      min-height: var(--sl-nav-height);
+      padding: 0 !important;
+      display: block !important;
+    }
+  }
+
+  .e2e-header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .e2e-header__row--main {
+    display: grid;
+    align-items: center;
+    gap: var(--sl-nav-gap);
+    height: 3.5rem;
+    padding-inline: var(--sl-nav-pad-x);
+    grid-template-columns: auto 1fr auto;
+  }
+
+  @media (min-width: 50rem) {
+    .e2e-header__row--main {
+      height: 4rem;
+    }
+  }
+
+  .e2e-header__title {
+    display: flex;
+    align-items: center;
+    overflow: clip;
+    min-width: 0;
+  }
+
+  .e2e-header__center {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .e2e-header__right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .e2e-header__social {
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  /* Product switcher pill (MyAccount | TIR) */
+  .product-switcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    border: 1px solid var(--e2e-border);
+    border-radius: var(--e2e-radius);
+    padding: 0.18rem;
+    background: var(--e2e-bg-soft);
+  }
+
+  .product-switcher__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.9rem;
+    border-radius: 6px;
+    padding: 0.3rem 0.7rem;
+    color: var(--e2e-text-soft);
+    font-size: 0.83rem;
+    font-weight: 680;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.1s, color 0.1s;
+  }
+
+  .product-switcher__link:hover {
+    background: var(--e2e-surface);
+    color: var(--e2e-text);
+  }
+
+  .product-switcher__link.is-active {
+    background: var(--e2e-accent);
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.15);
+  }
+
+  :global([data-theme='dark']) .product-switcher__link.is-active {
+    color: #fff;
+  }
+</style>

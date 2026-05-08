@@ -1,0 +1,83 @@
+---
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
+
+const { sidebar } = Astro.locals.starlightRoute;
+const path = Astro.url.pathname;
+const isMyAccount = path.startsWith('/myaccount');
+const isTir = path.startsWith('/tir');
+
+type SidebarEntry = (typeof sidebar)[number];
+
+function findGroupEntries(entries: SidebarEntry[], label: string) {
+  const group = entries.find(
+    (e: { type: string; label?: string }) => e.type === 'group' && e.label === label
+  );
+  return group ? (group as { type: string; entries: SidebarEntry[] }).entries : undefined;
+}
+
+function findProductEntries(label: string) {
+  return findGroupEntries(sidebar, label) ?? sidebar;
+}
+
+function contextualProductSidebar(productEntries: SidebarEntry[], productBase: string) {
+  if (path === `${productBase}/` || path === productBase) {
+    return productEntries.filter((e: { type: string; label?: string }) => e.label === 'Overview');
+  }
+
+  if (path.startsWith(`${productBase}/documentation`)) {
+    return (
+      findGroupEntries(productEntries, 'Documentation') ??
+      productEntries.filter((e: { type: string; label?: string }) => e.label === 'Documentation')
+    );
+  }
+
+  if (
+    path.startsWith(`${productBase}/guides`) ||
+    path.startsWith(`${productBase}/compute`) ||
+    path.startsWith(`${productBase}/networking`) ||
+    path.startsWith(`${productBase}/storage`) ||
+    path.startsWith(`${productBase}/backup`) ||
+    path.startsWith(`${productBase}/notebooks`) ||
+    path.startsWith(`${productBase}/datasets`) ||
+    path.startsWith(`${productBase}/training`) ||
+    path.startsWith(`${productBase}/inference`) ||
+    path.startsWith(`${productBase}/genai-api`) ||
+    path.startsWith(`${productBase}/terraform`)
+  ) {
+    return (
+      findGroupEntries(productEntries, 'Guides') ??
+      productEntries.filter((e: { type: string; label?: string }) => e.label === 'Guides')
+    );
+  }
+
+  if (path.startsWith(`${productBase}/api-automation`)) {
+    return productEntries.filter((e: { type: string; label?: string }) => e.label === 'Developer');
+  }
+
+  if (path.startsWith(`${productBase}/troubleshooting`)) {
+    return productEntries.filter((e: { type: string; label?: string }) => e.label === 'Troubleshooting');
+  }
+
+  return productEntries;
+}
+
+let contextualSidebar;
+if (isMyAccount) {
+  const productEntries = findProductEntries('MyAccount');
+  contextualSidebar = contextualProductSidebar(productEntries, '/myaccount');
+} else if (isTir) {
+  const productEntries = findProductEntries('TIR');
+  contextualSidebar = contextualProductSidebar(productEntries, '/tir');
+} else {
+  // On all other pages: hide MyAccount and TIR product groups
+  contextualSidebar = sidebar.filter(
+    (e: { type: string; label?: string }) =>
+      e.type !== 'group' || (e.label !== 'MyAccount' && e.label !== 'TIR')
+  );
+}
+---
+
+<SidebarPersister>
+  <SidebarSublist sublist={contextualSidebar} />
+</SidebarPersister>

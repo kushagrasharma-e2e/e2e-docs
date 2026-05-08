@@ -1,0 +1,126 @@
+---
+title: Getting started with E2E Cloud
+description: An orientation to E2E Cloud — what MyAccount and TIR are, how the docs are structured, and where to start based on your goal.
+product: e2e-cloud
+category: start-here
+service: platform
+feature: discovery
+audience:
+  - new_customer
+  - developer
+visibility: public
+status: draft
+last_verified: 2026-05-08
+supported_portal: both
+api_available: false
+api_spec_status: not_applicable
+support_assisted: false
+regions: []
+related_api: []
+related_ui: []
+related_services:
+  - myaccount_compute
+  - tir_notebooks
+related_troubleshooting:
+  - /myaccount/troubleshooting/
+related_solutions: []
+truth_source:
+  - design-and-tech-stack
+  - AGENTS.md
+llm_safe: true
+agent_actionable: false
+---
+
+## What is E2E Cloud?
+
+E2E Cloud is split into two products:
+
+- **MyAccount** — cloud infrastructure. Compute nodes, networking, storage, backups, and API access.
+- **TIR** — AI platform. Notebooks, datasets, training jobs, inference endpoints, and the GenAI API.
+
+Both products share the same account identity and billing. You need an active, funded account before you can use resources in either product.
+
+---
+
+## Before you use anything
+
+1. **Create an account** at the E2E Cloud portal.
+2. **Add credits or a payment method** — resources are billed by usage. A node that exists is a node that costs.
+3. **Choose a product** — if you need general compute, start with MyAccount. If you need AI workloads, start with TIR (TIR still requires a MyAccount-linked billing account).
+
+→ [Account & Billing](/e2e-docs/account-billing/)
+
+---
+
+## How the docs are structured
+
+Each product has four sections:
+
+| Section | What it contains |
+|---|---|
+| **Documentation** | Concepts, resource lifecycle, states, limitations, billing behavior |
+| **Guides** | Step-by-step tasks — create, configure, access, manage |
+| **Developer** | API authentication, endpoint references, Terraform automation |
+| **Troubleshooting** | Error-message-first help — cause, fix, support requirements |
+
+---
+
+## If you want to…
+
+**Create your first compute node**
+→ Read the guide: [Create a node](/e2e-docs/myaccount/compute/getting-started/create-node/)
+
+**Understand what node states mean**
+→ Read the reference: [Node states](/e2e-docs/myaccount/compute/reference/node-states/)
+
+**SSH into a running node**
+→ Read the how-to: [Access a node](/e2e-docs/myaccount/compute/how-to/access-node/)
+
+**Start using the TIR AI platform**
+→ Start at the product hub: [TIR](/e2e-docs/tir/)
+
+**Fix an error you're seeing**
+→ Look it up: [MyAccount troubleshooting](/e2e-docs/myaccount/troubleshooting/)
+
+---
+
+## MyAccount — what's documented
+
+<div class="hp-hubs">
+  <div class="hp-hubs__inner hp-hubs__inner--single">
+    <div class="hp-hub hp-hub--myaccount">
+      <div class="hp-hub__header">
+        <strong>MyAccount</strong>
+        <span>Compute · Networking · Storage · Backup</span>
+      </div>
+      <div class="hp-hub__links">
+        <a href="/e2e-docs/myaccount/documentation/">Documentation — concepts, states, limitations</a>
+        <a href="/e2e-docs/myaccount/guides/">Guides — step-by-step tasks for compute and more</a>
+        <a href="/e2e-docs/myaccount/api-automation/">Developer — API auth, references, Terraform</a>
+        <a href="/e2e-docs/myaccount/troubleshooting/">Troubleshooting — errors, fixes, support</a>
+      </div>
+      <a class="hp-hub__cta" href="/e2e-docs/myaccount/">Go to MyAccount →</a>
+    </div>
+    <div class="hp-hub hp-hub--tir">
+      <div class="hp-hub__header">
+        <strong>TIR</strong>
+        <span>Notebooks · Datasets · Training · Inference</span>
+      </div>
+      <div class="hp-hub__links">
+        <a href="/e2e-docs/tir/documentation/">Documentation — platform concepts, service overview</a>
+        <a href="/e2e-docs/tir/guides/">Guides — AI workflow tasks</a>
+        <a href="/e2e-docs/tir/api-automation/">Developer — TIR API, Terraform provider</a>
+        <a href="/e2e-docs/tir/troubleshooting/">Troubleshooting — TIR errors and support</a>
+      </div>
+      <a class="hp-hub__cta" href="/e2e-docs/tir/">Go to TIR →</a>
+    </div>
+  </div>
+</div>
+
+---
+
+## Next step
+
+Most users should start by creating a compute node — it's the fastest way to see the platform working.
+
+→ [Create your first compute node](/e2e-docs/myaccount/compute/getting-started/create-node/)

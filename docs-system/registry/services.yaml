@@ -1,0 +1,369 @@
+metadata:
+  visibility: internal
+  status: draft
+  last_updated: 2026-05-08
+services:
+  - id: myaccount_account
+    product: myaccount
+    name: MyAccount Account
+    description: Account creation, identity, profile, IAM, two-factor authentication, and related account flows.
+    priority: 1
+    public: true
+    service_hub: /account-billing/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/myaccount/
+    agent_specs: []
+    related_services:
+      - myaccount_billing
+      - tir_account
+    solutions: []
+    source_status: partial
+    documentation_status: draft
+    last_verified: null
+  - id: myaccount_billing
+    product: myaccount
+    name: MyAccount Billing
+    description: Credits, recharge, invoices, usage reports, and MyAccount billing behavior.
+    priority: 1
+    public: true
+    service_hub: /account-billing/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/myaccount/
+    agent_specs: []
+    related_services:
+      - myaccount_account
+      - tir_billing
+    solutions: []
+    source_status: partial
+    documentation_status: draft
+    last_verified: null
+  - id: myaccount_compute
+    product: myaccount
+    name: MyAccount Compute Nodes
+    description: Create, access, secure, manage, monitor, and automate compute nodes.
+    priority: 2
+    public: true
+    service_hub: /myaccount/compute/
+    getting_started:
+      - /myaccount/compute/getting-started/create-node/
+    how_to:
+      - /myaccount/compute/how-to/access-node/
+    reference:
+      - /myaccount/compute/reference/node-states/
+    api_docs:
+      - /api/
+    troubleshooting:
+      - /myaccount/compute/troubleshooting/
+    llm_context: /ai-context/myaccount/
+    agent_specs:
+      - /agents/create-compute-node.yaml
+    related_services:
+      - myaccount_networking
+      - myaccount_storage
+      - myaccount_backup
+      - myaccount_monitoring
+      - myaccount_billing
+    solutions:
+      - secure_web_server
+      - private_network_workload
+      - backup_ready_compute_workload
+    source_status: partial
+    documentation_status: draft
+    last_verified: null
+  - id: myaccount_networking
+    product: myaccount
+    name: MyAccount Networking
+    description: VPCs, security groups, reserved IPs, floating IPs, DNS, CDN, and related network services.
+    priority: 3
+    public: true
+    service_hub: /myaccount/networking/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/myaccount/
+    agent_specs: []
+    related_services:
+      - myaccount_compute
+    solutions: []
+    source_status: partial
+    documentation_status: planned
+    last_verified: null
+  - id: myaccount_storage
+    product: myaccount
+    name: MyAccount Storage
+    description: Block storage, object storage, file storage, persistent volumes, snapshots, and saved images.
+    priority: 4
+    public: true
+    service_hub: /myaccount/storage/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/myaccount/
+    agent_specs: []
+    related_services:
+      - myaccount_compute
+    solutions: []
+    source_status: partial
+    documentation_status: planned
+    last_verified: null
+  - id: myaccount_backup
+    product: myaccount
+    name: MyAccount Backup / CDP
+    description: CDP backup behavior, setup, limitations, and public-safe recovery guidance.
+    priority: 5
+    public: true
+    service_hub: /myaccount/backup/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/myaccount/
+    agent_specs: []
+    related_services:
+      - myaccount_compute
+      - myaccount_storage
+    solutions: []
+    source_status: partial
+    documentation_status: planned
+    last_verified: null
+  - id: myaccount_disaster_recovery
+    product: myaccount
+    name: MyAccount Disaster Recovery
+    description: Disaster recovery workflows and support-assisted recovery behavior.
+    priority: 6
+    public: true
+    service_hub: /myaccount/disaster-recovery/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/myaccount/
+    agent_specs: []
+    related_services:
+      - myaccount_compute
+      - myaccount_backup
+    solutions: []
+    source_status: partial
+    documentation_status: planned
+    last_verified: null
+  - id: myaccount_monitoring
+    product: myaccount
+    name: MyAccount Monitoring
+    description: Monitoring, resource metrics, alerts, and related failure states.
+    priority: 7
+    public: true
+    service_hub: /myaccount/monitoring/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/myaccount/
+    agent_specs: []
+    related_services:
+      - myaccount_compute
+    solutions: []
+    source_status: partial
+    documentation_status: planned
+    last_verified: null
+  - id: myaccount_api_auth
+    product: myaccount
+    name: MyAccount API Authentication
+    description: API token, API IAM, authentication, permissions, and automation entry points.
+    priority: 8
+    public: true
+    service_hub: /api/authentication/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/myaccount/
+    agent_specs: []
+    related_services:
+      - myaccount_account
+    solutions: []
+    source_status: partial
+    documentation_status: planned
+    last_verified: null
+  - id: tir_account
+    product: tir
+    name: TIR Account Relationship
+    description: TIR account relationship to MyAccount identity and account prerequisites.
+    priority: 9
+    public: true
+    service_hub: /tir/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/tir/
+    agent_specs: []
+    related_services:
+      - myaccount_account
+      - tir_billing
+    solutions: []
+    source_status: partial
+    documentation_status: planned
+    last_verified: null
+  - id: tir_billing
+    product: tir
+    name: TIR Billing
+    description: TIR billing relationship, usage, and account billing dependencies.
+    priority: 9
+    public: true
+    service_hub: /tir/billing/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/tir/
+    agent_specs: []
+    related_services:
+      - myaccount_billing
+      - tir_account
+    solutions: []
+    source_status: partial
+    documentation_status: planned
+    last_verified: null
+  - id: tir_notebooks
+    product: tir
+    name: TIR Notebooks
+    description: Notebook launch and management workflows.
+    priority: 10
+    public: true
+    service_hub: /tir/notebooks/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/tir/
+    agent_specs: []
+    related_services:
+      - tir_datasets
+      - tir_billing
+    solutions: []
+    source_status: missing
+    documentation_status: planned
+    last_verified: null
+  - id: tir_datasets
+    product: tir
+    name: TIR Datasets
+    description: Dataset management for TIR workflows.
+    priority: 11
+    public: true
+    service_hub: /tir/datasets/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/tir/
+    agent_specs: []
+    related_services:
+      - tir_notebooks
+      - tir_training
+    solutions: []
+    source_status: missing
+    documentation_status: planned
+    last_verified: null
+  - id: tir_inference
+    product: tir
+    name: TIR Inference
+    description: Inference endpoint deployment and management.
+    priority: 12
+    public: true
+    service_hub: /tir/inference/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/tir/
+    agent_specs: []
+    related_services:
+      - tir_training
+      - tir_genai_api
+    solutions: []
+    source_status: missing
+    documentation_status: planned
+    last_verified: null
+  - id: tir_training
+    product: tir
+    name: TIR Training
+    description: Model training workflows and automation.
+    priority: 13
+    public: true
+    service_hub: /tir/training/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/tir/
+    agent_specs: []
+    related_services:
+      - tir_datasets
+      - tir_inference
+    solutions: []
+    source_status: missing
+    documentation_status: planned
+    last_verified: null
+  - id: tir_genai_api
+    product: tir
+    name: TIR GenAI API
+    description: GenAI API usage and automation workflows.
+    priority: 14
+    public: true
+    service_hub: /tir/genai-api/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/tir/
+    agent_specs: []
+    related_services:
+      - tir_inference
+    solutions: []
+    source_status: missing
+    documentation_status: planned
+    last_verified: null
+  - id: tir_terraform
+    product: tir
+    name: TIR Terraform
+    description: Terraform automation for TIR workflows.
+    priority: 15
+    public: true
+    service_hub: /tir/terraform/
+    getting_started: []
+    how_to: []
+    reference: []
+    api_docs: []
+    troubleshooting: []
+    llm_context: /ai-context/tir/
+    agent_specs: []
+    related_services:
+      - tir_notebooks
+      - tir_inference
+    solutions: []
+    source_status: missing
+    documentation_status: planned
+    last_verified: null

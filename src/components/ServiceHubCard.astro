@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string;
+  href: string;
+  summary: string;
+  icon?: string;
+}
+
+import CardIcon from './CardIcon.astro';
+
+const { title, href, summary, icon } = Astro.props;
+const iconName = icon || (title.toLowerCase().includes('compute') ? 'compute' : 'docs');
+---
+
+<a class="e2e-card e2e-card--link e2e-service-card" href={href}>
+  <CardIcon name={iconName} />
+  <p class="e2e-meta">Service hub</p>
+  <h3>{title}</h3>
+  <p>{summary}</p>
+</a>

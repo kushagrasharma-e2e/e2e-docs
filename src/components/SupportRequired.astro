@@ -1,0 +1,9 @@
+---
+interface Props {
+  value: 'Yes' | 'No' | 'Sometimes';
+}
+
+const { value } = Astro.props;
+---
+
+<p><strong>Support required:</strong> {value}</p>

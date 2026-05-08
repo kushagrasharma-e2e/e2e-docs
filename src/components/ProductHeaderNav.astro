@@ -1,0 +1,26 @@
+---
+const path = Astro.url.pathname;
+const isMyAccount = path.startsWith('/myaccount');
+const isTir = path.startsWith('/tir');
+
+const links = [
+  {
+    href: '/myaccount/',
+    label: isTir ? 'Go to MyAccount' : 'MyAccount',
+    active: isMyAccount,
+  },
+  {
+    href: '/tir/',
+    label: isMyAccount ? 'Go to TIR' : 'TIR',
+    active: isTir,
+  },
+];
+---
+
+<nav class="product-header-nav" aria-label="Product documentation">
+  {links.map((link) => (
+    <a class:list={{ 'product-header-nav__link': true, 'is-active': link.active }} href={link.href}>
+      {link.label}
+    </a>
+  ))}
+</nav>

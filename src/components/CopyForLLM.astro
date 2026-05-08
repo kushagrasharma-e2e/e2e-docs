@@ -1,0 +1,9 @@
+---
+interface Props {
+  label?: string;
+}
+
+const { label = 'Copy for LLM' } = Astro.props;
+---
+
+<button type="button" class="sl-link-button" data-copy-for-llm>{label}</button>

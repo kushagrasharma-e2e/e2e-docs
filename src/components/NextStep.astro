@@ -1,0 +1,15 @@
+---
+interface Props {
+  href: string;
+  label: string;
+}
+
+import { docsPath } from '../utils/docsPath';
+
+const { href, label } = Astro.props;
+---
+
+<aside class="e2e-card">
+  <p class="e2e-meta">Next step</p>
+  <a href={docsPath(href)}>{label}</a>
+</aside>

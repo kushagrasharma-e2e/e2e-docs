@@ -1,0 +1,126 @@
+---
+title: Node Lifecycle and States
+description: Lifecycle behavior for MyAccount Nodes, including creation, provisioning, power actions, snapshots, saved images, upgrades, and deletion.
+product: myaccount
+category: documentation
+service: myaccount_compute
+feature: node_lifecycle
+audience:
+  - developer
+  - support
+  - qa
+visibility: public
+status: draft
+last_verified: 2026-05-08
+supported_portal: myaccount
+api_available: false
+api_spec_status: missing_from_openapi
+support_assisted: false
+regions: []
+related_api: []
+related_ui:
+  - MyAccount > Products > Nodes
+related_services:
+  - myaccount_backup
+  - myaccount_storage
+  - myaccount_monitoring
+related_troubleshooting:
+  - /myaccount/documentation/nodes/troubleshooting-edge-cases/
+related_solutions: []
+truth_source:
+  - verified_product_behavior
+llm_safe: true
+agent_actionable: false
+---
+
+# Node Lifecycle and States
+
+Node lifecycle is reflected in the MyAccount portal. The portal shows the current state and disables actions while state-changing operations are running.
+
+## Lifecycle Overview
+
+1. **Create request accepted:** MyAccount validates the selected image, plan, project, location, and add-ons.
+2. **Provisioning:** MyAccount starts provisioning the Node.
+3. **Initializing or deploying:** The Node is created on the target infrastructure and may pass through intermediate states.
+4. **Running:** The Node is available for normal compute operations.
+5. **Power actions:** Users can power off, stop, start, or reboot where state allows.
+6. **Mutating actions:** Users can reinstall, save image, snapshot, upgrade plan, increase root storage, attach resources, or change security/network settings where allowed.
+7. **Delete or terminate:** MyAccount initiates termination and handles related resource conditions where required.
+
+## Creation and Provisioning
+
+Creation begins from the portal. MyAccount creates a Node only after validating the selected configuration. During provisioning, related operations may also be started, such as backup enablement, monitoring setup, security configuration, or add-on installation.
+
+Creation can fail because of validation errors, quota or limit checks, unavailable plans/images, invalid project or location context, or unsupported option combinations. The portal may show transitional states while provisioning continues. Refresh the Node detail page to confirm the latest state.
+
+## Running and Active State
+
+A Running Node is the normal state for login, networking, monitoring, volume attachment workflows that permit running Nodes, backup operations, and application workloads. Some actions still require another state. For example, saved image creation is documented as requiring a powered-off Node, and some plan modifications require powered-off state.
+
+## Power Off, Stop, Start, and Reboot
+
+**Power off** shuts down the Node but does not generally stop billing.
+
+**Stop** deallocates the Node from active compute capacity where supported. For E1-series Nodes, compute billing can pause in stopped state while root storage, volumes, reserved IPs, and other attached resources continue to bill. Starting from stopped can take longer than starting from powered off.
+
+**Start** powers on or resumes a Node depending on whether the Node was powered off or stopped.
+
+**Reboot** restarts the Node without reinstalling the image.
+
+## Lock and Unlock
+
+Locking a Node prevents mutating operations such as stopping, restarting, or resizing until it is unlocked. Lock and unlock are available where the account has permission. Locking is not a deletion substitute; it is an action guard.
+
+## Reinstall and Recovery
+
+Reinstall rebuilds a Node from a selected image where supported. Recovery options vary by Node type and current state.
+
+## Saved Images
+
+Saved image creation allows a powered-off Node to become a reusable image. During saved image creation, other Node actions can be unavailable until the operation completes.
+
+Saved images can later be used as a creation source where available. Image management actions belong to the Images documentation.
+
+## Snapshots
+
+Snapshots capture point-in-time state for supported Node families. Snapshot creation can be triggered from the action menu or the detail page where the portal shows the option.
+
+Snapshot-related behavior includes:
+
+- Manual snapshot creation.
+- Snapshot listing.
+- Snapshot detail/action operations.
+- Save image from snapshot.
+- Lock and unlock snapshot.
+- Delete snapshot.
+- Scheduled snapshot configuration.
+- Snapshot lifecycle or retention behavior where implemented by related services.
+
+Snapshot billing can depend on snapshot usage and related storage behavior. Check the current billing view for actual charges.
+
+## Upgrade and Resize
+
+Plan modification is exposed through upgrade or modify-plan flows. E1 Nodes can support upgrade or downgrade while powered off. Other series may have stricter upgrade-only or compatibility rules.
+
+Root storage upgrade is a separate flow from plan upgrade. E1 root storage can be increased where the portal shows the option. The available sizes depend on the current plan and account eligibility.
+
+## Delete and Termination
+
+Delete initiates Node termination. Termination is destructive and billing-impacting. Related resources such as reserved IPs, backups, volumes, snapshots, saved images, and security add-ons may require separate review.
+
+Important behavior:
+
+- Deleting a Node is not the same as powering off or stopping it.
+- Reserved IPs and floating IPs can outlive a Node depending on attachment and reservation state.
+- Attached resources may continue to bill unless separately deleted or released.
+- Users should confirm backup, snapshot, and image requirements before termination.
+
+## State and UI Mapping
+
+The portal maps lifecycle state to labels and available actions. Treat mutating operations as asynchronous until the Node reaches a stable visible state such as Running, Powered Off, Stopped, or terminated.
+
+## Known Ambiguities
+
+- Some operations can take longer depending on selected image, plan, add-ons, and region.
+- The portal may use related terms such as "power on" and "start" for similar behavior.
+- If a Node remains in a transitional state longer than expected, collect the Node ID, region, action, and approximate time before contacting support.
